@@ -1,2 +1,902 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
+<svelte:head>
+	<title>CVAC Longueuil | Thermopompes, Climatisation & Chauffage</title>
+	<meta
+		name="description"
+		content="Service CVAC à Longueuil : thermopompes, climatisation, chauffage, entretien et réparation. Soumission gratuite, intervention rapide et équipes certifiées."
+	/>
+	<meta name="keywords" content="CVAC Longueuil, thermopompe Longueuil, climatisation Longueuil, chauffage Longueuil" />
+	<meta property="og:title" content="CVAC Longueuil | Confort résidentiel et commercial" />
+	<meta
+		property="og:description"
+		content="Thermopompes, climatisation, chauffage et entretien à Longueuil. Appel rapide pour une soumission gratuite."
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="fr_CA" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Urbanist:wght@300;400;500;600;700&display=swap"
+		rel="stylesheet"
+	/>
+</svelte:head>
+
+<div class="page">
+	<div class="glow glow-1"></div>
+	<div class="glow glow-2"></div>
+
+	<header class="site-header">
+		<div class="topbar">
+			<p>Service CVAC local à Longueuil • Intervention rapide 7j/7</p>
+			<a class="topbar-cta" href="tel:+14388153412">Appeler maintenant</a>
+		</div>
+		<nav class="nav">
+			<div class="brand">
+				<div class="brand-mark">CVAC</div>
+				<div>
+					<p class="brand-name">CVAC Longueuil</p>
+					<p class="brand-tag">Confort résidentiel & commercial</p>
+				</div>
+			</div>
+			<div class="nav-links">
+				<a href="#services">Services</a>
+				<a href="#processus">Processus</a>
+				<a href="#avis">Avis</a>
+				<a href="#faq">FAQ</a>
+				<a class="nav-soft" href="#contact">Soumission</a>
+			</div>
+			<div class="nav-cta">
+				<a class="btn primary" href="tel:+14388153412">Appeler pour une soumission</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-content reveal">
+				<p class="eyebrow">Thermopompes • Climatisation • Chauffage</p>
+				<h1>Redécouvrez le confort à Longueuil.</h1>
+				<p class="lead">
+					Installation, réparation et entretien CVAC par une équipe certifiée. Devis transparents, délais rapides
+					et solutions adaptées aux maisons et commerces de Longueuil.
+				</p>
+				<div class="cta-row">
+					<a class="btn primary" href="tel:+14388153412">Appeler maintenant</a>
+					<a class="btn secondary" href="#contact">Obtenir une soumission gratuite</a>
+				</div>
+				<div class="hero-points">
+					<div>
+						<span>✓</span>
+						<p>Diagnostic rapide et prix clairs</p>
+					</div>
+					<div>
+						<span>✓</span>
+						<p>Techniciens certifiés CVAC</p>
+					</div>
+					<div>
+						<span>✓</span>
+						<p>Garantie sur les travaux</p>
+					</div>
+				</div>
+				<div class="trust-row">
+					<div class="pill">+350 installations locales</div>
+					<div class="pill">Intervention 24/7</div>
+					<div class="pill">Soumission gratuite</div>
+				</div>
+			</div>
+			<div class="hero-visual reveal delay-1">
+				<div class="visual-card">
+					<svg viewBox="0 0 420 300" aria-hidden="true">
+						<rect x="28" y="60" width="180" height="180" rx="20" fill="#e7f1ff" />
+						<rect x="220" y="40" width="170" height="210" rx="24" fill="#f7f4ea" />
+						<circle cx="308" cy="144" r="56" fill="#1c2b3a" />
+						<circle cx="308" cy="144" r="40" fill="#f4b83f" />
+						<circle cx="308" cy="144" r="10" fill="#1c2b3a" />
+						<rect x="58" y="90" width="120" height="20" rx="8" fill="#1c2b3a" />
+						<rect x="58" y="130" width="120" height="20" rx="8" fill="#8aa2b4" />
+						<rect x="58" y="170" width="120" height="20" rx="8" fill="#8aa2b4" />
+					</svg>
+					<div class="visual-caption">
+						<p>Équipements performants</p>
+						<span>Rendement énergétique optimisé</span>
+					</div>
+				</div>
+				<div class="visual-note">
+					<p>Économisez jusqu’à 30% sur vos coûts d’énergie grâce à une thermopompe bien dimensionnée.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section services reveal" id="services">
+			<div class="section-header">
+				<p class="eyebrow">Solutions CVAC complètes</p>
+				<h2>Des services pensés pour le climat de la Rive-Sud.</h2>
+			</div>
+			<div class="cards">
+				<article class="card">
+					<h3>Thermopompes</h3>
+					<p>Installation et remplacement de thermopompes murales et centrales adaptées à Longueuil.</p>
+					<a href="#contact">Demander une évaluation</a>
+				</article>
+				<article class="card">
+					<h3>Climatisation</h3>
+					<p>Refroidissement silencieux et efficace pour les journées chaudes. Entretien et réparation rapide.</p>
+					<a href="#contact">Soumission gratuite</a>
+				</article>
+				<article class="card">
+					<h3>Chauffage</h3>
+					<p>Optimisation des systèmes électriques, gaz ou mazout. Diagnostics précis et sécuritaires.</p>
+					<a href="#contact">Parler à un expert</a>
+				</article>
+				<article class="card">
+					<h3>Ventilation</h3>
+					<p>Qualité de l’air, échangeurs d’air et équilibrage des conduits pour un confort durable.</p>
+					<a href="#contact">Planifier une visite</a>
+				</article>
+				<article class="card">
+					<h3>Entretien CVAC</h3>
+					<p>Contrats d’entretien préventif pour réduire les pannes et prolonger la durée de vie.</p>
+					<a href="#contact">Voir les forfaits</a>
+				</article>
+			</div>
+		</section>
+
+		<section class="section highlight reveal delay-1" id="processus">
+			<div class="highlight-content">
+				<h2>Un processus simple, rapide et sans surprise.</h2>
+				<p>
+					Notre équipe locale prend tout en charge : évaluation, recommandations, installation et suivi. Nous vous
+					proposons des solutions claires avec un calendrier précis.
+				</p>
+				<div class="steps">
+					<div>
+						<span>1</span>
+						<p>Appel rapide et prise d’informations</p>
+					</div>
+					<div>
+						<span>2</span>
+						<p>Visite sur place et soumission détaillée</p>
+					</div>
+					<div>
+						<span>3</span>
+						<p>Installation soignée et garantie</p>
+					</div>
+				</div>
+				<div class="cta-row">
+					<a class="btn primary" href="tel:+14388153412">Appeler pour une soumission</a>
+					<a class="btn ghost" href="#contact">Planifier une visite</a>
+				</div>
+			</div>
+			<div class="highlight-card">
+				<h3>Zones desservies</h3>
+				<p>Longueuil, Saint-Hubert, Greenfield Park, Brossard et environs.</p>
+				<ul>
+					<li>Service résidentiel et commercial</li>
+					<li>Interventions urgentes disponibles</li>
+					<li>Conseils sur les subventions locales</li>
+				</ul>
+				<div class="phone-box">
+					<span>📞</span>
+					<div>
+						<p>Appel direct</p>
+						<a href="tel:+14388153412">+1 438-815-3412</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section stats reveal" id="chiffres">
+			<div class="stat">
+				<h3>15+</h3>
+				<p>années d’expérience combinée</p>
+			</div>
+			<div class="stat">
+				<h3>4.9/5</h3>
+				<p>moyenne de satisfaction locale</p>
+			</div>
+			<div class="stat">
+				<h3>48h</h3>
+				<p>délai moyen pour une installation</p>
+			</div>
+		</section>
+
+		<section class="section reviews reveal" id="avis">
+			<div class="section-header">
+				<p class="eyebrow">Avis clients</p>
+				<h2>Un service exemplaire, à chaque fois.</h2>
+			</div>
+			<div class="cards">
+				<article class="card review">
+					<p>
+						“Soumission claire, installation rapide et équipe vraiment respectueuse. Notre thermopompe est
+						silencieuse et performante.”
+					</p>
+					<span>— Mélanie, Longueuil</span>
+				</article>
+				<article class="card review">
+					<p>
+						“Service d’urgence un samedi soir, réparé en moins de 2 heures. Très professionnel et transparent.”
+					</p>
+					<span>— Karim, Saint-Hubert</span>
+				</article>
+				<article class="card review">
+					<p>
+						“On a économisé sur nos factures dès le premier mois. Le suivi après installation est top.”
+					</p>
+					<span>— Sophie, Greenfield Park</span>
+				</article>
+			</div>
+		</section>
+
+		<section class="section faq reveal" id="faq">
+			<div class="section-header">
+				<p class="eyebrow">Questions fréquentes</p>
+				<h2>Tout ce qu’il faut savoir avant de choisir.</h2>
+			</div>
+			<div class="faq-grid">
+				<details>
+					<summary>Quel est le délai moyen pour une installation?</summary>
+					<p>La majorité des installations sont planifiées en 24 à 48 heures selon la disponibilité du matériel.</p>
+				</details>
+				<details>
+					<summary>Offrez-vous un service d’urgence?</summary>
+					<p>Oui, nous avons des plages d’urgence pour les pannes critiques, surtout en période de grand froid.</p>
+				</details>
+				<details>
+					<summary>Pouvez-vous m’aider avec les subventions?</summary>
+					<p>Absolument. Nous vous guidons sur les programmes provinciaux et municipaux disponibles.</p>
+				</details>
+				<details>
+					<summary>Quel entretien recommandez-vous?</summary>
+					<p>Un entretien annuel avec nettoyage et inspection complète pour garder les performances optimales.</p>
+				</details>
+			</div>
+		</section>
+
+		<section class="section contact reveal delay-1" id="contact">
+			<div class="contact-card">
+				<div>
+					<p class="eyebrow">Soumission rapide</p>
+					<h2>Parlez-nous de votre projet CVAC.</h2>
+					<p>
+						Laissez vos informations et un spécialiste vous rappelle rapidement. Nous intervenons à Longueuil et
+						sur la Rive-Sud.
+					</p>
+					<div class="contact-info">
+						<div>
+							<span>📞</span>
+							<div>
+								<p>Téléphone</p>
+								<a href="tel:+14388153412">+1 438-815-3412</a>
+							</div>
+						</div>
+						<div>
+							<span>📍</span>
+							<div>
+								<p>Zone</p>
+								<span>Longueuil, QC</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<form class="form" action="#" method="post">
+					<label>
+						Nom complet
+						<input type="text" name="name" placeholder="Votre nom" required />
+					</label>
+					<label>
+						Téléphone
+						<input type="tel" name="phone" placeholder="Votre numéro" required />
+					</label>
+					<label>
+						Adresse
+						<input type="text" name="address" placeholder="Rue, secteur" />
+					</label>
+					<label>
+						Service recherché
+						<select name="service">
+							<option>Thermopompe</option>
+							<option>Climatisation</option>
+							<option>Chauffage</option>
+							<option>Ventilation</option>
+							<option>Entretien</option>
+						</select>
+					</label>
+					<label>
+						Message
+						<textarea name="message" rows="4" placeholder="Dites-nous ce dont vous avez besoin"></textarea>
+					</label>
+					<button class="btn primary" type="submit">Obtenir une soumission gratuite</button>
+					<p class="form-note">En soumettant, vous acceptez d’être contacté par téléphone ou texto.</p>
+				</form>
+			</div>
+		</section>
+
+		<section class="section english reveal">
+			<h2>English summary</h2>
+			<p>
+				We provide HVAC services in Longueuil: heat pumps, air conditioning, heating, ventilation, and
+				maintenance. Call +1 438-815-3412 for a free quote and fast local service.
+			</p>
+		</section>
+	</main>
+
+	<footer class="footer">
+		<div>
+			<p class="brand-name">CVAC Longueuil</p>
+			<p>Service local • Installation • Réparation • Entretien</p>
+			<p>📞 +1 438-815-3412</p>
+		</div>
+		<div class="footer-links">
+			<a href="#services">Services</a>
+			<a href="#processus">Processus</a>
+			<a href="#avis">Avis</a>
+			<a href="#faq">FAQ</a>
+		</div>
+		<div class="footer-cta">
+			<p>Besoin d’un rappel rapide?</p>
+			<a class="btn secondary" href="tel:+14388153412">Appeler maintenant</a>
+		</div>
+	</footer>
+</div>
+
+<style>
+	:global(:root) {
+		--bg: #f6f4ef;
+		--ink: #1b2a3a;
+		--muted: #5e6c7a;
+		--accent: #f3b43f;
+		--accent-dark: #d3972b;
+		--sea: #4bb3d4;
+		--paper: #ffffff;
+		--shadow: 0 18px 40px rgba(18, 34, 52, 0.12);
+	}
+
+	:global(body) {
+		margin: 0;
+		font-family: 'Urbanist', sans-serif;
+		background: var(--bg);
+		color: var(--ink);
+	}
+
+	:global(a) {
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.page {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.glow {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(0);
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+	.glow-1 {
+		width: 420px;
+		height: 420px;
+		background: radial-gradient(circle, rgba(75, 179, 212, 0.5), transparent 70%);
+		top: -120px;
+		right: -120px;
+	}
+
+	.glow-2 {
+		width: 460px;
+		height: 460px;
+		background: radial-gradient(circle, rgba(243, 180, 63, 0.45), transparent 70%);
+		bottom: 120px;
+		left: -180px;
+	}
+
+	.reveal {
+		animation: fadeUp 0.8s ease both;
+	}
+
+	.delay-1 {
+		animation-delay: 0.15s;
+	}
+
+	@keyframes fadeUp {
+		from {
+			opacity: 0;
+			transform: translateY(18px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.site-header {
+		position: sticky;
+		top: 0;
+		background: rgba(246, 244, 239, 0.95);
+		backdrop-filter: blur(10px);
+		z-index: 5;
+		box-shadow: 0 8px 24px rgba(27, 42, 58, 0.08);
+	}
+
+	.topbar {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0.65rem 6vw;
+		font-size: 0.9rem;
+		background: #1b2a3a;
+		color: #f2f6f9;
+		gap: 1rem;
+	}
+
+	.topbar-cta {
+		background: var(--accent);
+		color: var(--ink);
+		padding: 0.4rem 1rem;
+		border-radius: 999px;
+		font-weight: 600;
+	}
+
+	.nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem 6vw;
+		gap: 1.5rem;
+	}
+
+	.brand {
+		display: flex;
+		gap: 0.9rem;
+		align-items: center;
+	}
+
+	.brand-mark {
+		width: 48px;
+		height: 48px;
+		border-radius: 16px;
+		background: linear-gradient(135deg, #1b2a3a, #35516b);
+		color: #fff;
+		display: grid;
+		place-items: center;
+		font-weight: 700;
+		letter-spacing: 1px;
+	}
+
+	.brand-name {
+		font-family: 'Fraunces', serif;
+		font-size: 1.2rem;
+		margin: 0;
+	}
+
+	.brand-tag {
+		margin: 0;
+		color: var(--muted);
+		font-size: 0.85rem;
+	}
+
+	.nav-links {
+		display: flex;
+		gap: 1.2rem;
+		font-size: 0.95rem;
+		color: var(--muted);
+	}
+
+	.nav-links a:hover {
+		color: var(--ink);
+	}
+
+	.nav-soft {
+		font-weight: 600;
+	}
+
+	.nav-cta {
+		display: flex;
+	}
+
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.85rem 1.4rem;
+		border-radius: 999px;
+		font-weight: 600;
+		border: none;
+		cursor: pointer;
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.btn.primary {
+		background: var(--accent);
+		color: var(--ink);
+		box-shadow: 0 12px 24px rgba(243, 180, 63, 0.3);
+	}
+
+	.btn.secondary {
+		background: #fff;
+		border: 1px solid rgba(27, 42, 58, 0.15);
+		color: var(--ink);
+	}
+
+	.btn.ghost {
+		background: transparent;
+		border: 1px dashed rgba(27, 42, 58, 0.3);
+		color: var(--ink);
+	}
+
+	.btn:hover {
+		transform: translateY(-2px);
+	}
+
+	main {
+		padding: 2rem 6vw 4rem;
+	}
+
+	.hero {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 3rem;
+		align-items: center;
+		padding: 2rem 0 4rem;
+	}
+
+	.eyebrow {
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		font-size: 0.75rem;
+		color: var(--sea);
+		font-weight: 700;
+		margin-bottom: 1rem;
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-family: 'Fraunces', serif;
+		margin: 0 0 1rem;
+	}
+
+	h1 {
+		font-size: clamp(2.4rem, 3vw, 3.4rem);
+	}
+
+	.lead {
+		font-size: 1.05rem;
+		color: var(--muted);
+		line-height: 1.7;
+	}
+
+	.cta-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin: 1.6rem 0;
+	}
+
+	.hero-points {
+		display: grid;
+		gap: 0.8rem;
+		margin-bottom: 1.6rem;
+		color: var(--muted);
+	}
+
+	.hero-points div {
+		display: flex;
+		gap: 0.6rem;
+		align-items: center;
+	}
+
+	.hero-points span {
+		color: var(--accent-dark);
+		font-weight: 700;
+	}
+
+	.trust-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.8rem;
+	}
+
+	.pill {
+		background: #fff;
+		border-radius: 999px;
+		padding: 0.5rem 1rem;
+		box-shadow: var(--shadow);
+		font-size: 0.9rem;
+	}
+
+	.hero-visual {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.visual-card {
+		background: #fff;
+		border-radius: 28px;
+		padding: 1.8rem;
+		box-shadow: var(--shadow);
+		display: grid;
+		gap: 1rem;
+	}
+
+	.visual-card svg {
+		width: 100%;
+		height: auto;
+	}
+
+	.visual-caption p {
+		margin: 0;
+		font-weight: 600;
+	}
+
+	.visual-caption span {
+		color: var(--muted);
+		font-size: 0.9rem;
+	}
+
+	.visual-note {
+		padding: 1rem 1.4rem;
+		border-radius: 20px;
+		background: rgba(75, 179, 212, 0.12);
+		color: var(--muted);
+	}
+
+	.section {
+		padding: 4rem 0;
+	}
+
+	.section-header {
+		max-width: 620px;
+		margin-bottom: 2.5rem;
+	}
+
+	.cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1.5rem;
+	}
+
+	.card {
+		background: #fff;
+		padding: 1.6rem;
+		border-radius: 20px;
+		box-shadow: var(--shadow);
+		display: grid;
+		gap: 0.8rem;
+	}
+
+	.card a {
+		color: var(--sea);
+		font-weight: 600;
+	}
+
+	.highlight {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 2rem;
+		align-items: center;
+		background: #fff;
+		border-radius: 32px;
+		padding: 3rem;
+		box-shadow: var(--shadow);
+	}
+
+	.steps {
+		display: grid;
+		gap: 1rem;
+		margin-top: 1.6rem;
+	}
+
+	.steps div {
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+	}
+
+	.steps span {
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		background: var(--accent);
+		display: grid;
+		place-items: center;
+		font-weight: 700;
+	}
+
+	.highlight-card {
+		background: #1b2a3a;
+		color: #fff;
+		padding: 2rem;
+		border-radius: 24px;
+		display: grid;
+		gap: 1rem;
+	}
+
+	.highlight-card ul {
+		margin: 0;
+		padding-left: 1.1rem;
+		color: rgba(255, 255, 255, 0.8);
+	}
+
+	.phone-box {
+		display: flex;
+		gap: 0.8rem;
+		align-items: center;
+		background: rgba(255, 255, 255, 0.12);
+		padding: 0.8rem 1rem;
+		border-radius: 16px;
+	}
+
+	.phone-box a {
+		color: #fff;
+		font-weight: 600;
+	}
+
+	.stats {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1.5rem;
+		text-align: center;
+	}
+
+	.stat h3 {
+		font-size: 2.2rem;
+		margin-bottom: 0.4rem;
+	}
+
+	.reviews .card {
+		background: #f9f7f2;
+	}
+
+	.review span {
+		color: var(--muted);
+		font-weight: 600;
+	}
+
+	.faq-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 1.2rem;
+	}
+
+	details {
+		background: #fff;
+		border-radius: 16px;
+		padding: 1rem 1.2rem;
+		box-shadow: var(--shadow);
+	}
+
+	summary {
+		cursor: pointer;
+		font-weight: 600;
+	}
+
+	.contact-card {
+		background: #1b2a3a;
+		color: #fff;
+		border-radius: 32px;
+		padding: 3rem;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 2.5rem;
+		box-shadow: var(--shadow);
+	}
+
+	.contact-info {
+		display: grid;
+		gap: 1rem;
+		margin-top: 1.5rem;
+	}
+
+	.contact-info div {
+		display: flex;
+		gap: 0.8rem;
+		align-items: center;
+	}
+
+	.form {
+		display: grid;
+		gap: 1rem;
+		background: #fff;
+		color: var(--ink);
+		padding: 1.6rem;
+		border-radius: 24px;
+	}
+
+	label {
+		display: grid;
+		gap: 0.4rem;
+		font-size: 0.9rem;
+	}
+
+	input,
+	select,
+	textarea {
+		border-radius: 12px;
+		border: 1px solid rgba(27, 42, 58, 0.2);
+		padding: 0.7rem 0.8rem;
+		font-family: 'Urbanist', sans-serif;
+	}
+
+	.form-note {
+		font-size: 0.8rem;
+		color: var(--muted);
+		margin: 0;
+	}
+
+	.english {
+		background: #fff;
+		border-radius: 24px;
+		padding: 2rem;
+		box-shadow: var(--shadow);
+	}
+
+	.footer {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 1.5rem;
+		padding: 3rem 6vw 4rem;
+		background: #111c28;
+		color: #dfe7ef;
+	}
+
+	.footer-links {
+		display: grid;
+		gap: 0.6rem;
+	}
+
+	.footer-cta {
+		display: grid;
+		gap: 1rem;
+	}
+
+	.footer .btn.secondary {
+		background: transparent;
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		color: #fff;
+	}
+
+	@media (max-width: 900px) {
+		.topbar {
+			flex-direction: column;
+			text-align: center;
+		}
+
+		.nav {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.nav-links {
+			flex-wrap: wrap;
+		}
+
+		.nav-cta {
+			width: 100%;
+		}
+
+		.nav-cta .btn {
+			width: 100%;
+		}
+	}
+
+	@media (max-width: 600px) {
+		main {
+			padding: 1.5rem 5vw 3rem;
+		}
+
+		.topbar {
+			padding: 0.8rem 5vw;
+		}
+
+		.hero {
+			padding-bottom: 2rem;
+		}
+
+		.contact-card {
+			padding: 2rem;
+		}
+	}
+</style>
