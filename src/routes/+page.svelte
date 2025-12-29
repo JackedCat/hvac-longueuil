@@ -113,7 +113,7 @@
       <button
         class="lang-toggle"
         type="button"
-        on:click={toggleLang}
+        onclick={toggleLang}
         aria-label={lang === "fr" ? "Switch to English" : "Passer au français"}
       >
         {lang === "fr" ? "EN" : "FR"}
