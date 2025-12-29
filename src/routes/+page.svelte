@@ -1,9 +1,27 @@
 <script>
+  import { onMount } from "svelte";
+
   let lang = $state("fr");
+
+  const setDocumentLang = (value) => {
+    if (typeof document !== "undefined") {
+      document.documentElement.lang = value;
+    }
+  };
 
   const toggleLang = () => {
     lang = lang === "fr" ? "en" : "fr";
+    setDocumentLang(lang === "fr" ? "fr-CA" : "en-CA");
   };
+
+  onMount(() => {
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get("lang");
+    if (requested === "fr" || requested === "en") {
+      lang = requested;
+    }
+    setDocumentLang(lang === "fr" ? "fr-CA" : "en-CA");
+  });
 </script>
 
 <svelte:head>
@@ -388,8 +406,8 @@
         </div>
       </section>
 
-      <section class="section contact reveal delay-1" id="contact">
-        <div class="contact-card">
+			<section class="section contact reveal delay-1" id="contact">
+				<div class="contact-card">
           <div>
             <p class="eyebrow">Soumission rapide</p>
             <h2>Parlez-nous de votre projet CVAC.</h2>
@@ -414,7 +432,8 @@
               </div>
             </div>
           </div>
-          <form class="form" action="#" method="post">
+          <form class="form" action="https://formspree.io/f/xdaowvln" method="post">
+            <input type="hidden" name="redirect" value="/?lang=fr#merci" />
             <label>
               Nom complet
               <input type="text" name="name" placeholder="Votre nom" required />
@@ -457,10 +476,18 @@
               En soumettant, vous acceptez d’être contacté par téléphone ou
               texto.
             </p>
-          </form>
-        </div>
-      </section>
-    {:else}
+					</form>
+				</div>
+			</section>
+
+			<section class="section thanks reveal" id="merci">
+				<div class="thanks-card">
+					<h2>Merci! Votre demande a été envoyée.</h2>
+					<p>Un spécialiste vous contacte rapidement pour confirmer les prochaines étapes.</p>
+					<a class="btn secondary" href="tel:+14388153412">Appeler maintenant</a>
+				</div>
+			</section>
+		{:else}
       <section class="hero">
         <div class="hero-content reveal">
           <p class="eyebrow">Heat Pumps • Air Conditioning • Heating</p>
@@ -730,8 +757,8 @@
         </div>
       </section>
 
-      <section class="section contact reveal delay-1" id="contact">
-        <div class="contact-card">
+			<section class="section contact reveal delay-1" id="contact">
+				<div class="contact-card">
           <div>
             <p class="eyebrow">Fast quote</p>
             <h2>Tell us about your HVAC project.</h2>
@@ -756,7 +783,8 @@
               </div>
             </div>
           </div>
-          <form class="form" action="#" method="post">
+          <form class="form" action="https://formspree.io/f/xdaowvln" method="post">
+            <input type="hidden" name="redirect" value="/?lang=en#thank-you" />
             <label>
               Full name
               <input type="text" name="name" placeholder="Your name" required />
@@ -796,11 +824,19 @@
             <p class="form-note">
               By submitting, you agree to be contacted by phone or text.
             </p>
-          </form>
-        </div>
-      </section>
-    {/if}
-  </main>
+					</form>
+				</div>
+			</section>
+
+			<section class="section thanks reveal" id="thank-you">
+				<div class="thanks-card">
+					<h2>Thanks! Your request has been sent.</h2>
+					<p>A specialist will contact you shortly to confirm next steps.</p>
+					<a class="btn secondary" href="tel:+14388153412">Call now</a>
+				</div>
+			</section>
+		{/if}
+	</main>
 
   <footer class="footer">
     {#if lang === "fr"}
@@ -1354,6 +1390,20 @@
     font-size: 0.8rem;
     color: var(--muted);
     margin: 0;
+  }
+
+  .thanks {
+    padding-top: 2rem;
+  }
+
+  .thanks-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 1rem;
+    max-width: 720px;
   }
 
   .footer {
