@@ -1,8 +1,119 @@
 <script>
   import { onMount } from "svelte";
+  import { site } from "$lib/data/site.config";
+  import { serviceAreas } from "$lib/data/locations";
 
   let lang = $state("fr");
   let showThanks = $state(false);
+
+  const faqsFr = [
+    {
+      question: "Quel est le délai pour une visite?",
+      answer:
+        "Nous proposons des plages rapides selon la disponibilité et confirmons le délai après l’évaluation initiale.",
+    },
+    {
+      question: "Offrez-vous un service d’urgence?",
+      answer:
+        "Oui, des plages d’urgence sont disponibles pour les pannes critiques, surtout en période de grand froid.",
+    },
+    {
+      question: "Aidez-vous avec les subventions?",
+      answer:
+        "Nous partageons les informations utiles sur les programmes provinciaux et municipaux applicables.",
+    },
+    {
+      question: "Quel entretien recommandez-vous?",
+      answer:
+        "Un entretien annuel avec nettoyage et inspection complète aide à garder de bonnes performances.",
+    },
+  ];
+
+  const faqsEn = [
+    {
+      question: "How soon can you visit?",
+      answer:
+        "We offer fast time slots based on availability and confirm timing after the initial assessment.",
+    },
+    {
+      question: "Do you offer emergency service?",
+      answer:
+        "Yes. Emergency availability is possible for critical breakdowns, especially during cold snaps.",
+    },
+    {
+      question: "Can you help with rebates?",
+      answer:
+        "We share the relevant provincial and municipal program information that applies to your project.",
+    },
+    {
+      question: "What maintenance do you recommend?",
+      answer:
+        "An annual cleaning and inspection keeps performance and efficiency on track.",
+    },
+  ];
+
+  const commitmentsFr = [
+    {
+      title: "Service fiable et professionnel",
+      text: "Service attentif, communication claire et respect de votre espace.",
+    },
+    {
+      title: "Prix transparents",
+      text: "Options expliquées simplement pour choisir la solution la plus adaptée.",
+    },
+    {
+      title: "Disponibilité locale",
+      text: `Interventions rapides à ${site.city} et sur la Rive-Sud.`,
+    },
+  ];
+
+  const commitmentsEn = [
+    {
+      title: "Reliable, professional service",
+      text: "Attentive service, clear communication, and respect for your space.",
+    },
+    {
+      title: "Transparent pricing",
+      text: "Clear options so you can choose the right solution.",
+    },
+    {
+      title: "Local availability",
+      text: `Fast response in ${site.city} and the South Shore.`,
+    },
+  ];
+
+  const getLocalBusinessJsonLd = (language) =>
+    JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: site.brand,
+      description:
+        language === "fr"
+          ? `Services ${site.serviceFr} à ${site.city} : thermopompes, climatisation, chauffage, ventilation, entretien.`
+          : `${site.serviceEn} services in ${site.city}: heat pumps, air conditioning, heating, ventilation, maintenance.`,
+      areaServed: serviceAreas.map((area) => area.name),
+      telephone: site.phone,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: site.city,
+        addressRegion: site.region,
+        addressCountry: "CA",
+      },
+    });
+
+  const getFaqJsonLd = (language) =>
+    JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: (language === "fr" ? faqsFr : faqsEn).map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    });
 
   const setDocumentLang = (value) => {
     if (typeof document !== "undefined") {
@@ -35,45 +146,54 @@
 
 <svelte:head>
   {#if lang === "fr"}
-    <title>CVAC Longueuil | Thermopompes, Climatisation & Chauffage</title>
+    <title
+      >{site.serviceFr}
+      {site.city} | Thermopompes, Climatisation & Chauffage</title
+    >
     <meta
       name="description"
-      content="Service CVAC à Longueuil : thermopompes, climatisation, chauffage, entretien et réparation. Soumission gratuite, intervention rapide et équipes certifiées."
+      content={`Service ${site.serviceFr} à ${site.city} : thermopompes, climatisation, chauffage, ventilation, entretien et réparation. Soumission gratuite et service local.`}
     />
     <meta
       name="keywords"
-      content="CVAC Longueuil, thermopompe Longueuil, climatisation Longueuil, chauffage Longueuil"
+      content={`${site.serviceFr} ${site.city}, thermopompe ${site.city}, climatisation ${site.city}, chauffage ${site.city}`}
     />
     <meta
       property="og:title"
-      content="CVAC Longueuil | Confort résidentiel et commercial"
+      content={`${site.serviceFr} ${site.city} | Confort résidentiel et commercial`}
     />
     <meta
       property="og:description"
-      content="Thermopompes, climatisation, chauffage et entretien à Longueuil. Appel rapide pour une soumission gratuite."
+      content={`Thermopompes, climatisation, chauffage et entretien à ${site.city}. Appel rapide pour une soumission.`}
     />
     <meta property="og:locale" content="fr_CA" />
   {:else}
-    <title>HVAC Longueuil | Heat Pumps, AC & Heating</title>
+    <title>{site.serviceEn} {site.city} | Heating & Cooling Services</title>
     <meta
       name="description"
-      content="HVAC service in Longueuil: heat pumps, air conditioning, heating, maintenance and repairs. Free quotes and fast local response."
+      content={`${site.serviceEn} service in ${site.city}: heat pumps, air conditioning, heating, ventilation, maintenance, and repairs. Free quotes and fast local response.`}
     />
     <meta
       name="keywords"
-      content="HVAC Longueuil, heat pump Longueuil, air conditioning Longueuil, heating Longueuil"
+      content={`${site.serviceEn} ${site.city}, heat pump ${site.city}, air conditioning ${site.city}, heating ${site.city}`}
     />
     <meta
       property="og:title"
-      content="HVAC Longueuil | Residential and commercial comfort"
+      content={`${site.serviceEn} ${site.city} | Residential and commercial comfort`}
     />
     <meta
       property="og:description"
-      content="Heat pumps, air conditioning, heating, and maintenance in Longueuil. Call for a fast free quote."
+      content={`Heat pumps, air conditioning, heating, and maintenance in ${site.city}. Call for a fast free quote.`}
     />
     <meta property="og:locale" content="en_CA" />
   {/if}
   <meta property="og:type" content="website" />
+  <script type="application/ld+json">
+{getLocalBusinessJsonLd(lang)}
+  </script>
+  <script type="application/ld+json">
+{getFaqJsonLd(lang)}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -90,30 +210,30 @@
     <div class="topbar">
       <p>
         {lang === "fr"
-          ? "Service CVAC local à Longueuil • Intervention rapide 7j/7"
-          : "Local HVAC service in Longueuil • Fast response 7 days a week"}
+          ? `Service ${site.serviceFr} local à ${site.city} • Plages d'urgence disponibles`
+          : `Local ${site.serviceEn} service in ${site.city} • Emergency availability`}
       </p>
-      <a class="topbar-phone" href="tel:+14388153412">
+      <a class="topbar-phone" href={site.phoneHref}>
         <span class="icon">📞</span>
-        {lang === "fr" ? "Appel direct" : "Direct line"} · +1 438-815-3412
+        {lang === "fr" ? "Appel direct" : "Direct line"} · {site.phone}
       </a>
     </div>
     <nav class="nav">
       <div class="brand">
-        <div class="brand-mark">CVAC</div>
+        <div class="brand-mark">{site.shortBrand}</div>
         <div>
-          <p class="brand-name">CVAC Longueuil</p>
+          <p class="brand-name">{site.brand}</p>
           <p class="brand-tag">
-            {lang === "fr"
-              ? "Confort résidentiel & commercial"
-              : "Residential & commercial comfort"}
+            {lang === "fr" ? site.taglineFr : site.taglineEn}
           </p>
         </div>
       </div>
       <div class="nav-links">
         <a href="#services">{lang === "fr" ? "Services" : "Services"}</a>
         <a href="#processus">{lang === "fr" ? "Processus" : "Process"}</a>
-        <a href="#avis">{lang === "fr" ? "Avis" : "Reviews"}</a>
+        <a href="#engagements"
+          >{lang === "fr" ? "Engagements" : "Commitments"}</a
+        >
         <a href="#faq">FAQ</a>
         <a class="nav-soft" href="#contact"
           >{lang === "fr" ? "Soumission" : "Quote"}</a
@@ -128,14 +248,14 @@
         {lang === "fr" ? "EN" : "FR"}
       </button>
       <div class="nav-cta">
-        <a class="btn primary cta-call" href="tel:+14388153412">
+        <a class="btn primary cta-call" href={site.phoneHref}>
           <span class="icon">📞</span>
           <span class="cta-label">
             {lang === "fr"
               ? "Appeler pour une soumission"
               : "Call for a free quote"}
           </span>
-          <span class="cta-number">+1 438-815-3412</span>
+          <span class="cta-number">{site.phone}</span>
         </a>
       </div>
     </nav>
@@ -146,15 +266,14 @@
       <section class="hero">
         <div class="hero-content reveal">
           <p class="eyebrow">Thermopompes • Climatisation • Chauffage</p>
-          <h1>Redécouvrez le confort à Longueuil.</h1>
+          <h1>Redécouvrez le confort à {site.city}.</h1>
           <p class="lead">
-            Installation, réparation et entretien CVAC par une équipe certifiée.
-            Devis transparents, délais rapides et solutions adaptées aux maisons
-            et commerces de Longueuil.
+            Installation, réparation et entretien {site.serviceFr} par des professionnels
+            qualifiés. Devis transparents et solutions adaptées aux maisons et commerces
+            de {site.city}.
           </p>
           <div class="cta-row">
-            <a class="btn primary" href="tel:+14388153412">Appeler maintenant</a
-            >
+            <a class="btn primary" href={site.phoneHref}>Appeler maintenant</a>
             <a class="btn secondary" href="#contact"
               >Obtenir une soumission gratuite</a
             >
@@ -162,21 +281,21 @@
           <div class="hero-points">
             <div>
               <span>✓</span>
-              <p>Diagnostic rapide et prix clairs</p>
+              <p>Diagnostic clair et recommandations simples</p>
             </div>
             <div>
               <span>✓</span>
-              <p>Techniciens certifiés CVAC</p>
+              <p>Techniciens qualifiés et assurés</p>
             </div>
             <div>
               <span>✓</span>
-              <p>Garantie sur les travaux</p>
+              <p>Service local et suivi attentionné</p>
             </div>
           </div>
           <div class="trust-row">
-            <div class="pill">+350 installations locales</div>
-            <div class="pill">Intervention 24/7</div>
             <div class="pill">Soumission gratuite</div>
+            <div class="pill">Options claires</div>
+            <div class="pill">Service local</div>
           </div>
         </div>
         <div class="hero-visual reveal delay-1">
@@ -233,8 +352,8 @@
           </div>
           <div class="visual-note">
             <p>
-              Économisez jusqu’à 30% sur vos coûts d’énergie grâce à une
-              thermopompe bien dimensionnée.
+              Optimisez votre confort et l’efficacité énergétique avec un
+              système bien adapté.
             </p>
           </div>
         </div>
@@ -242,7 +361,7 @@
 
       <section class="section services reveal" id="services">
         <div class="section-header">
-          <p class="eyebrow">Solutions CVAC complètes</p>
+          <p class="eyebrow">Solutions {site.serviceFr} complètes</p>
           <h2>Des services pensés pour le climat de la Rive-Sud.</h2>
         </div>
         <div class="cards">
@@ -250,7 +369,7 @@
             <h3>Thermopompes</h3>
             <p>
               Installation et remplacement de thermopompes murales et centrales
-              adaptées à Longueuil.
+              adaptées à {site.city}.
             </p>
             <a href="#contact">Demander une évaluation</a>
           </article>
@@ -279,7 +398,7 @@
             <a href="#contact">Planifier une visite</a>
           </article>
           <article class="card">
-            <h3>Entretien CVAC</h3>
+            <h3>Entretien {site.serviceFr}</h3>
             <p>
               Contrats d’entretien préventif pour réduire les pannes et
               prolonger la durée de vie.
@@ -289,13 +408,65 @@
         </div>
       </section>
 
+      <section class="section commitments reveal" id="engagements">
+        <div class="section-header">
+          <p class="eyebrow">Engagements locaux</p>
+          <h2>Un service neutre, fiable et centré sur vos besoins.</h2>
+        </div>
+        <div class="cards">
+          {#each commitmentsFr as item}
+            <article class="card">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          {/each}
+        </div>
+      </section>
+
+      <section class="section visuals reveal" id="visuels">
+        <div class="section-header">
+          <p class="eyebrow">Aperçu de solutions</p>
+          <h2>Des équipements modernes, intégrés avec soin.</h2>
+        </div>
+        <div class="visual-grid">
+          <figure>
+            <img
+              src="/images/kettenreaktion-l_Vn4HlFQVw-unsplash.jpg"
+              alt="Thermopompe extérieure installée dans une cour résidentielle"
+              loading="lazy"
+            />
+            <figcaption>
+              Thermopompes adaptées au climat de {site.city}.
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/images/maxwell-odonkor-32sdOfMXRC8-unsplash.jpg"
+              alt="Technicien en service CVAC en intervention sur un système de climatisation"
+              loading="lazy"
+            />
+            <figcaption>
+              Interventions propres et respectueuses des lieux.
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/images/pexels-kathleen-austin-kuhn-2152973960-32497161.jpg"
+              alt="Détail d'un équipement de ventilation intérieur moderne"
+              loading="lazy"
+            />
+            <figcaption>Qualité de l’air et confort durable.</figcaption>
+          </figure>
+        </div>
+      </section>
+
       <section class="section highlight reveal delay-1" id="processus">
         <div class="highlight-content">
           <h2>Un processus simple, rapide et sans surprise.</h2>
           <p>
-            Notre équipe locale prend tout en charge : évaluation,
-            recommandations, installation et suivi. Nous vous proposons des
-            solutions claires avec un calendrier précis.
+            Des professionnels locaux prennent tout en charge : évaluation,
+            recommandations, installation et suivi. Des solutions claires sont
+            proposées avec un calendrier précis.
           </p>
           <div class="steps">
             <div>
@@ -308,11 +479,11 @@
             </div>
             <div>
               <span>3</span>
-              <p>Installation soignée et garantie</p>
+              <p>Installation soignée et suivi</p>
             </div>
           </div>
           <div class="cta-row">
-            <a class="btn primary" href="tel:+14388153412"
+            <a class="btn primary" href={site.phoneHref}
               >Appeler pour une soumission</a
             >
             <a class="btn ghost" href="#contact">Planifier une visite</a>
@@ -320,7 +491,12 @@
         </div>
         <div class="highlight-card">
           <h3>Zones desservies</h3>
-          <p>Longueuil, Saint-Hubert, Greenfield Park, Brossard et environs.</p>
+          <p>{site.city} et les secteurs voisins.</p>
+          <ul class="area-links">
+            {#each serviceAreas as area}
+              <li><a href={`/areas/${area.slug}`}>{area.name}</a></li>
+            {/each}
+          </ul>
           <ul>
             <li>Service résidentiel et commercial</li>
             <li>Interventions urgentes disponibles</li>
@@ -330,54 +506,9 @@
             <span>📞</span>
             <div>
               <p>Appel direct</p>
-              <a href="tel:+14388153412">+1 438-815-3412</a>
+              <a href={site.phoneHref}>{site.phone}</a>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section class="section stats reveal" id="chiffres">
-        <div class="stat">
-          <h3>15+</h3>
-          <p>années d’expérience combinée</p>
-        </div>
-        <div class="stat">
-          <h3>4.9/5</h3>
-          <p>moyenne de satisfaction locale</p>
-        </div>
-        <div class="stat">
-          <h3>48h</h3>
-          <p>délai moyen pour une installation</p>
-        </div>
-      </section>
-
-      <section class="section reviews reveal" id="avis">
-        <div class="section-header">
-          <p class="eyebrow">Avis clients</p>
-          <h2>Un service exemplaire, à chaque fois.</h2>
-        </div>
-        <div class="cards">
-          <article class="card review">
-            <p>
-              “Soumission claire, installation rapide et équipe vraiment
-              respectueuse. Notre thermopompe est silencieuse et performante.”
-            </p>
-            <span>— Mélanie, Longueuil</span>
-          </article>
-          <article class="card review">
-            <p>
-              “Service d’urgence un samedi soir, réparé en moins de 2 heures.
-              Très professionnel et transparent.”
-            </p>
-            <span>— Karim, Saint-Hubert</span>
-          </article>
-          <article class="card review">
-            <p>
-              “On a économisé sur nos factures dès le premier mois. Le suivi
-              après installation est top.”
-            </p>
-            <span>— Sophie, Greenfield Park</span>
-          </article>
         </div>
       </section>
 
@@ -387,34 +518,12 @@
           <h2>Tout ce qu’il faut savoir avant de choisir.</h2>
         </div>
         <div class="faq-grid">
-          <details>
-            <summary>Quel est le délai moyen pour une installation?</summary>
-            <p>
-              La majorité des installations sont planifiées en 24 à 48 heures
-              selon la disponibilité du matériel.
-            </p>
-          </details>
-          <details>
-            <summary>Offrez-vous un service d’urgence?</summary>
-            <p>
-              Oui, nous avons des plages d’urgence pour les pannes critiques,
-              surtout en période de grand froid.
-            </p>
-          </details>
-          <details>
-            <summary>Pouvez-vous m’aider avec les subventions?</summary>
-            <p>
-              Absolument. Nous vous guidons sur les programmes provinciaux et
-              municipaux disponibles.
-            </p>
-          </details>
-          <details>
-            <summary>Quel entretien recommandez-vous?</summary>
-            <p>
-              Un entretien annuel avec nettoyage et inspection complète pour
-              garder les performances optimales.
-            </p>
-          </details>
+          {#each faqsFr as faq}
+            <details>
+              <summary>{faq.question}</summary>
+              <p>{faq.answer}</p>
+            </details>
+          {/each}
         </div>
       </section>
 
@@ -422,34 +531,45 @@
         <div class="contact-card">
           <div>
             <p class="eyebrow">Soumission rapide</p>
-            <h2>Parlez-nous de votre projet CVAC.</h2>
+            <h2>Parlez-nous de votre projet {site.serviceFr}.</h2>
             <p>
               Laissez vos informations et un spécialiste vous rappelle
-              rapidement. Nous intervenons à Longueuil et sur la Rive-Sud.
+              rapidement. Service disponible à {site.city} et sur la Rive-Sud.
             </p>
             <div class="contact-info">
               <div>
                 <span>📞</span>
                 <div>
                   <p>Téléphone</p>
-                  <a href="tel:+14388153412">+1 438-815-3412</a>
+                  <a href={site.phoneHref}>{site.phone}</a>
+                </div>
+              </div>
+              <div>
+                <span>✉️</span>
+                <div>
+                  <p>Courriel</p>
+                  <a href={`mailto:${site.email}`}>{site.email}</a>
                 </div>
               </div>
               <div>
                 <span>📍</span>
                 <div>
                   <p>Zone</p>
-                  <span>Longueuil, QC</span>
+                  <span>{site.city}, {site.region}</span>
                 </div>
               </div>
             </div>
           </div>
-          <form
-            class="form"
-            action="https://formspree.io/f/xdaowvln"
-            method="post"
-          >
+          <form class="form" action={site.formEndpoint} method="post">
             <input type="hidden" name="redirect" value="/?lang=fr#merci" />
+            <input
+              type="text"
+              name="_gotcha"
+              class="hp-field"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
             <label>
               Nom complet
               <input type="text" name="name" placeholder="Votre nom" required />
@@ -460,6 +580,15 @@
                 type="tel"
                 name="phone"
                 placeholder="Votre numéro"
+                required
+              />
+            </label>
+            <label>
+              Courriel
+              <input
+                type="email"
+                name="email"
+                placeholder="Votre courriel"
                 required
               />
             </label>
@@ -505,8 +634,7 @@
               Un spécialiste vous contacte rapidement pour confirmer les
               prochaines étapes.
             </p>
-            <a class="btn secondary" href="tel:+14388153412"
-              >Appeler maintenant</a
+            <a class="btn secondary" href={site.phoneHref}>Appeler maintenant</a
             >
           </div>
         </section>
@@ -515,34 +643,33 @@
       <section class="hero">
         <div class="hero-content reveal">
           <p class="eyebrow">Heat Pumps • Air Conditioning • Heating</p>
-          <h1>Rediscover comfort in Longueuil.</h1>
+          <h1>Rediscover comfort in {site.city}.</h1>
           <p class="lead">
-            Installation, repair, and HVAC maintenance by a certified team.
-            Clear pricing, fast timelines, and solutions for homes and
-            businesses in Longueuil.
+            Installation, repair, and {site.serviceEn} maintenance by qualified professionals.
+            Clear pricing and solutions for homes and businesses in {site.city}.
           </p>
           <div class="cta-row">
-            <a class="btn primary" href="tel:+14388153412">Call now</a>
+            <a class="btn primary" href={site.phoneHref}>Call now</a>
             <a class="btn secondary" href="#contact">Get a free quote</a>
           </div>
           <div class="hero-points">
             <div>
               <span>✓</span>
-              <p>Fast diagnostics and clear pricing</p>
+              <p>Clear diagnostics and simple recommendations</p>
             </div>
             <div>
               <span>✓</span>
-              <p>Certified HVAC technicians</p>
+              <p>Qualified, insured technicians</p>
             </div>
             <div>
               <span>✓</span>
-              <p>Work guaranteed</p>
+              <p>Local service with attentive follow-up</p>
             </div>
           </div>
           <div class="trust-row">
-            <div class="pill">350+ local installations</div>
-            <div class="pill">24/7 response</div>
             <div class="pill">Free quote</div>
+            <div class="pill">Clear options</div>
+            <div class="pill">Local service</div>
           </div>
         </div>
         <div class="hero-visual reveal delay-1">
@@ -599,7 +726,8 @@
           </div>
           <div class="visual-note">
             <p>
-              Save up to 30% on energy costs with a properly sized heat pump.
+              Improve comfort and energy efficiency with a properly sized
+              system.
             </p>
           </div>
         </div>
@@ -607,7 +735,7 @@
 
       <section class="section services reveal" id="services">
         <div class="section-header">
-          <p class="eyebrow">Complete HVAC solutions</p>
+          <p class="eyebrow">Complete {site.serviceEn} solutions</p>
           <h2>Services designed for the South Shore climate.</h2>
         </div>
         <div class="cards">
@@ -615,7 +743,7 @@
             <h3>Heat pumps</h3>
             <p>
               Installation and replacement of wall-mounted and central heat
-              pumps tailored to Longueuil.
+              pumps tailored to {site.city}.
             </p>
             <a href="#contact">Request an assessment</a>
           </article>
@@ -642,7 +770,7 @@
             <a href="#contact">Schedule a visit</a>
           </article>
           <article class="card">
-            <h3>HVAC maintenance</h3>
+            <h3>{site.serviceEn} maintenance</h3>
             <p>
               Preventive maintenance plans to reduce breakdowns and extend
               equipment life.
@@ -652,11 +780,63 @@
         </div>
       </section>
 
+      <section class="section commitments reveal" id="engagements">
+        <div class="section-header">
+          <p class="eyebrow">Local commitments</p>
+          <h2>Neutral, reliable service focused on your needs.</h2>
+        </div>
+        <div class="cards">
+          {#each commitmentsEn as item}
+            <article class="card">
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </article>
+          {/each}
+        </div>
+      </section>
+
+      <section class="section visuals reveal" id="visuals">
+        <div class="section-header">
+          <p class="eyebrow">Solution snapshots</p>
+          <h2>Modern equipment integrated with care.</h2>
+        </div>
+        <div class="visual-grid">
+          <figure>
+            <img
+              src="/images/kettenreaktion-l_Vn4HlFQVw-unsplash.jpg"
+              alt="Outdoor heat pump unit installed at a residential property"
+              loading="lazy"
+            />
+            <figcaption>
+              Heat pump options suited for {site.city} homes.
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/images/maxwell-odonkor-32sdOfMXRC8-unsplash.jpg"
+              alt="HVAC technician servicing an air conditioning system"
+              loading="lazy"
+            />
+            <figcaption>Careful, tidy interventions on every visit.</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/images/pexels-kathleen-austin-kuhn-2152973960-32497161.jpg"
+              alt="Modern indoor ventilation equipment detail"
+              loading="lazy"
+            />
+            <figcaption>
+              Air quality and comfort, tuned for your space.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
       <section class="section highlight reveal delay-1" id="processus">
         <div class="highlight-content">
           <h2>A simple, fast, no-surprise process.</h2>
           <p>
-            Our local team handles everything: evaluation, recommendations,
+            Local professionals handle everything: evaluation, recommendations,
             installation, and follow-up. You get clear options and a precise
             schedule.
           </p>
@@ -671,11 +851,11 @@
             </div>
             <div>
               <span>3</span>
-              <p>Clean installation with warranty</p>
+              <p>Clean installation with clear follow-up</p>
             </div>
           </div>
           <div class="cta-row">
-            <a class="btn primary" href="tel:+14388153412"
+            <a class="btn primary" href={site.phoneHref}
               >Call for a free quote</a
             >
             <a class="btn ghost" href="#contact">Schedule a visit</a>
@@ -683,7 +863,12 @@
         </div>
         <div class="highlight-card">
           <h3>Service areas</h3>
-          <p>Longueuil, Saint-Hubert, Greenfield Park, Brossard, and nearby.</p>
+          <p>{site.city} and nearby neighborhoods.</p>
+          <ul class="area-links">
+            {#each serviceAreas as area}
+              <li><a href={`/areas/${area.slug}`}>{area.name}</a></li>
+            {/each}
+          </ul>
           <ul>
             <li>Residential and commercial service</li>
             <li>Emergency slots available</li>
@@ -693,54 +878,9 @@
             <span>📞</span>
             <div>
               <p>Direct line</p>
-              <a href="tel:+14388153412">+1 438-815-3412</a>
+              <a href={site.phoneHref}>{site.phone}</a>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section class="section stats reveal" id="chiffres">
-        <div class="stat">
-          <h3>15+</h3>
-          <p>years of combined experience</p>
-        </div>
-        <div class="stat">
-          <h3>4.9/5</h3>
-          <p>average local satisfaction</p>
-        </div>
-        <div class="stat">
-          <h3>48h</h3>
-          <p>average installation timeline</p>
-        </div>
-      </section>
-
-      <section class="section reviews reveal" id="avis">
-        <div class="section-header">
-          <p class="eyebrow">Client reviews</p>
-          <h2>Excellent service, every time.</h2>
-        </div>
-        <div class="cards">
-          <article class="card review">
-            <p>
-              “Clear quote, fast installation, and a respectful team. Our heat
-              pump is quiet and powerful.”
-            </p>
-            <span>— Melanie, Longueuil</span>
-          </article>
-          <article class="card review">
-            <p>
-              “Emergency service on a Saturday night, fixed in under two hours.
-              Very professional.”
-            </p>
-            <span>— Karim, Saint-Hubert</span>
-          </article>
-          <article class="card review">
-            <p>
-              “We saved on our bills right away. The follow-up after
-              installation was great.”
-            </p>
-            <span>— Sophie, Greenfield Park</span>
-          </article>
         </div>
       </section>
 
@@ -750,34 +890,12 @@
           <h2>Everything you need before choosing a system.</h2>
         </div>
         <div class="faq-grid">
-          <details>
-            <summary>What is the typical installation timeline?</summary>
-            <p>
-              Most installations are scheduled within 24 to 48 hours depending
-              on equipment availability.
-            </p>
-          </details>
-          <details>
-            <summary>Do you offer emergency service?</summary>
-            <p>
-              Yes. We reserve emergency slots for critical breakdowns,
-              especially during cold snaps.
-            </p>
-          </details>
-          <details>
-            <summary>Can you help with rebates?</summary>
-            <p>
-              Absolutely. We guide you through provincial and municipal programs
-              currently available.
-            </p>
-          </details>
-          <details>
-            <summary>What maintenance do you recommend?</summary>
-            <p>
-              An annual cleaning and inspection keeps performance and efficiency
-              at their best.
-            </p>
-          </details>
+          {#each faqsEn as faq}
+            <details>
+              <summary>{faq.question}</summary>
+              <p>{faq.answer}</p>
+            </details>
+          {/each}
         </div>
       </section>
 
@@ -785,34 +903,45 @@
         <div class="contact-card">
           <div>
             <p class="eyebrow">Fast quote</p>
-            <h2>Tell us about your HVAC project.</h2>
+            <h2>Tell us about your {site.serviceEn} project.</h2>
             <p>
-              Leave your details and a specialist will call you back quickly. We
-              serve Longueuil and the South Shore.
+              Leave your details and a specialist will call you back quickly.
+              Service is available in {site.city} and the South Shore.
             </p>
             <div class="contact-info">
               <div>
                 <span>📞</span>
                 <div>
                   <p>Phone</p>
-                  <a href="tel:+14388153412">+1 438-815-3412</a>
+                  <a href={site.phoneHref}>{site.phone}</a>
+                </div>
+              </div>
+              <div>
+                <span>✉️</span>
+                <div>
+                  <p>Email</p>
+                  <a href={`mailto:${site.email}`}>{site.email}</a>
                 </div>
               </div>
               <div>
                 <span>📍</span>
                 <div>
                   <p>Area</p>
-                  <span>Longueuil, QC</span>
+                  <span>{site.city}, {site.region}</span>
                 </div>
               </div>
             </div>
           </div>
-          <form
-            class="form"
-            action="https://formspree.io/f/xdaowvln"
-            method="post"
-          >
+          <form class="form" action={site.formEndpoint} method="post">
             <input type="hidden" name="redirect" value="/?lang=en#thank-you" />
+            <input
+              type="text"
+              name="_gotcha"
+              class="hp-field"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
             <label>
               Full name
               <input type="text" name="name" placeholder="Your name" required />
@@ -823,6 +952,15 @@
                 type="tel"
                 name="phone"
                 placeholder="Your number"
+                required
+              />
+            </label>
+            <label>
+              Email
+              <input
+                type="email"
+                name="email"
+                placeholder="Your email"
                 required
               />
             </label>
@@ -862,7 +1000,7 @@
           <div class="thanks-card">
             <h2>Thanks! Your request has been sent.</h2>
             <p>A specialist will contact you shortly to confirm next steps.</p>
-            <a class="btn secondary" href="tel:+14388153412">Call now</a>
+            <a class="btn secondary" href={site.phoneHref}>Call now</a>
           </div>
         </section>
       {/if}
@@ -872,35 +1010,35 @@
   <footer class="footer">
     {#if lang === "fr"}
       <div>
-        <p class="brand-name">CVAC Longueuil</p>
+        <p class="brand-name">{site.brand}</p>
         <p>Service local • Installation • Réparation • Entretien</p>
-        <p>📞 +1 438-815-3412</p>
+        <p>📞 {site.phone}</p>
       </div>
       <div class="footer-links">
         <a href="#services">Services</a>
         <a href="#processus">Processus</a>
-        <a href="#avis">Avis</a>
+        <a href="#engagements">Engagements</a>
         <a href="#faq">FAQ</a>
       </div>
       <div class="footer-cta">
         <p>Besoin d’un rappel rapide?</p>
-        <a class="btn secondary" href="tel:+14388153412">Appeler maintenant</a>
+        <a class="btn secondary" href={site.phoneHref}>Appeler maintenant</a>
       </div>
     {:else}
       <div>
-        <p class="brand-name">HVAC Longueuil</p>
+        <p class="brand-name">{site.brand}</p>
         <p>Local service • Installation • Repair • Maintenance</p>
-        <p>📞 +1 438-815-3412</p>
+        <p>📞 {site.phone}</p>
       </div>
       <div class="footer-links">
         <a href="#services">Services</a>
         <a href="#processus">Process</a>
-        <a href="#avis">Reviews</a>
+        <a href="#engagements">Commitments</a>
         <a href="#faq">FAQ</a>
       </div>
       <div class="footer-cta">
         <p>Need a quick callback?</p>
-        <a class="btn secondary" href="tel:+14388153412">Call now</a>
+        <a class="btn secondary" href={site.phoneHref}>Call now</a>
       </div>
     {/if}
   </footer>
@@ -1107,10 +1245,6 @@
   .icon {
     font-size: 1rem;
     line-height: 1;
-  }
-
-  .phone-inline {
-    white-space: nowrap;
   }
 
   .btn.primary {
@@ -1365,25 +1499,49 @@
     font-weight: 600;
   }
 
-  .stats {
+  .visual-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1.5rem;
-    text-align: center;
   }
 
-  .stat h3 {
-    font-size: 2.2rem;
-    margin-bottom: 0.4rem;
+  .visual-grid figure {
+    margin: 0;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: grid;
   }
 
-  .reviews .card {
-    background: #f9f7f2;
+  .visual-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
   }
 
-  .review span {
+  .visual-grid figcaption {
+    padding: 0.9rem 1.1rem;
     color: var(--muted);
-    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .highlight-card .area-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .highlight-card .area-links a {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
   }
 
   .faq-grid {
@@ -1455,6 +1613,10 @@
     font-size: 0.8rem;
     color: var(--muted);
     margin: 0;
+  }
+
+  .hp-field {
+    display: none;
   }
 
   .thanks {
