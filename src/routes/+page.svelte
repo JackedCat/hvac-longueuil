@@ -475,6 +475,7 @@
                 <option>Chauffage</option>
                 <option>Ventilation</option>
                 <option>Entretien</option>
+                <option>Autre</option>
               </select>
             </label>
             <label>
@@ -837,6 +838,7 @@
                 <option>Heating</option>
                 <option>Ventilation</option>
                 <option>Maintenance</option>
+                <option>Other</option>
               </select>
             </label>
             <label>
