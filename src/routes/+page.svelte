@@ -128,11 +128,14 @@
         {lang === "fr" ? "EN" : "FR"}
       </button>
       <div class="nav-cta">
-        <a class="btn primary" href="tel:+14388153412">
+        <a class="btn primary cta-call" href="tel:+14388153412">
           <span class="icon">📞</span>
-          {lang === "fr"
-            ? "Appeler pour une soumission"
-            : "Call for a free quote"} · +1 438-815-3412
+          <span class="cta-label">
+            {lang === "fr"
+              ? "Appeler pour une soumission"
+              : "Call for a free quote"}
+          </span>
+          <span class="cta-number">+1 438-815-3412</span>
         </a>
       </div>
     </nav>
@@ -1010,9 +1013,9 @@
   }
 
   .nav {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(420px, 1fr) auto 360px;
     align-items: center;
-    justify-content: space-between;
     padding: 1rem 6vw;
     gap: 1.5rem;
   }
@@ -1052,6 +1055,8 @@
     gap: 1.2rem;
     font-size: 0.95rem;
     color: var(--muted);
+    justify-content: center;
+    min-width: 420px;
   }
 
   .nav-links a:hover {
@@ -1064,6 +1069,8 @@
 
   .nav-cta {
     display: flex;
+    justify-self: end;
+    min-width: 360px;
   }
 
   .lang-toggle {
@@ -1100,10 +1107,40 @@
     line-height: 1;
   }
 
+  .phone-inline {
+    white-space: nowrap;
+  }
+
   .btn.primary {
     background: var(--accent);
     color: var(--ink);
     box-shadow: 0 12px 24px rgba(243, 180, 63, 0.3);
+  }
+
+  .cta-call {
+    padding: 0.9rem 1.4rem;
+    gap: 0.75rem;
+    min-height: 58px;
+    box-shadow: 0 16px 28px rgba(243, 180, 63, 0.35);
+    width: 100%;
+  }
+
+  .cta-call .icon {
+    font-size: 1.1rem;
+  }
+
+  .cta-label {
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .cta-number {
+    white-space: nowrap;
+    font-weight: 700;
+    font-size: 0.98rem;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
   }
 
   .btn.secondary {
@@ -1464,6 +1501,7 @@
     }
 
     .nav {
+      display: flex;
       flex-direction: column;
       align-items: flex-start;
     }
@@ -1482,6 +1520,12 @@
 
     .lang-toggle {
       width: 100%;
+    }
+
+    .cta-call {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
   }
 
