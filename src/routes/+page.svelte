@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
 
   let lang = $state("fr");
+  let showThanks = $state(false);
 
   const setDocumentLang = (value) => {
     if (typeof document !== "undefined") {
@@ -21,6 +22,14 @@
       lang = requested;
     }
     setDocumentLang(lang === "fr" ? "fr-CA" : "en-CA");
+    const updateThanks = () => {
+      showThanks =
+        window.location.hash === "#merci" ||
+        window.location.hash === "#thank-you";
+    };
+    updateThanks();
+    window.addEventListener("hashchange", updateThanks);
+    return () => window.removeEventListener("hashchange", updateThanks);
   });
 </script>
 
@@ -406,8 +415,8 @@
         </div>
       </section>
 
-			<section class="section contact reveal delay-1" id="contact">
-				<div class="contact-card">
+      <section class="section contact reveal delay-1" id="contact">
+        <div class="contact-card">
           <div>
             <p class="eyebrow">Soumission rapide</p>
             <h2>Parlez-nous de votre projet CVAC.</h2>
@@ -432,7 +441,11 @@
               </div>
             </div>
           </div>
-          <form class="form" action="https://formspree.io/f/xdaowvln" method="post">
+          <form
+            class="form"
+            action="https://formspree.io/f/xdaowvln"
+            method="post"
+          >
             <input type="hidden" name="redirect" value="/?lang=fr#merci" />
             <label>
               Nom complet
@@ -476,18 +489,25 @@
               En soumettant, vous acceptez d’être contacté par téléphone ou
               texto.
             </p>
-					</form>
-				</div>
-			</section>
+          </form>
+        </div>
+      </section>
 
-			<section class="section thanks reveal" id="merci">
-				<div class="thanks-card">
-					<h2>Merci! Votre demande a été envoyée.</h2>
-					<p>Un spécialiste vous contacte rapidement pour confirmer les prochaines étapes.</p>
-					<a class="btn secondary" href="tel:+14388153412">Appeler maintenant</a>
-				</div>
-			</section>
-		{:else}
+      {#if showThanks}
+        <section class="section thanks reveal" id="merci">
+          <div class="thanks-card">
+            <h2>Merci! Votre demande a été envoyée.</h2>
+            <p>
+              Un spécialiste vous contacte rapidement pour confirmer les
+              prochaines étapes.
+            </p>
+            <a class="btn secondary" href="tel:+14388153412"
+              >Appeler maintenant</a
+            >
+          </div>
+        </section>
+      {/if}
+    {:else}
       <section class="hero">
         <div class="hero-content reveal">
           <p class="eyebrow">Heat Pumps • Air Conditioning • Heating</p>
@@ -757,8 +777,8 @@
         </div>
       </section>
 
-			<section class="section contact reveal delay-1" id="contact">
-				<div class="contact-card">
+      <section class="section contact reveal delay-1" id="contact">
+        <div class="contact-card">
           <div>
             <p class="eyebrow">Fast quote</p>
             <h2>Tell us about your HVAC project.</h2>
@@ -783,7 +803,11 @@
               </div>
             </div>
           </div>
-          <form class="form" action="https://formspree.io/f/xdaowvln" method="post">
+          <form
+            class="form"
+            action="https://formspree.io/f/xdaowvln"
+            method="post"
+          >
             <input type="hidden" name="redirect" value="/?lang=en#thank-you" />
             <label>
               Full name
@@ -824,19 +848,21 @@
             <p class="form-note">
               By submitting, you agree to be contacted by phone or text.
             </p>
-					</form>
-				</div>
-			</section>
+          </form>
+        </div>
+      </section>
 
-			<section class="section thanks reveal" id="thank-you">
-				<div class="thanks-card">
-					<h2>Thanks! Your request has been sent.</h2>
-					<p>A specialist will contact you shortly to confirm next steps.</p>
-					<a class="btn secondary" href="tel:+14388153412">Call now</a>
-				</div>
-			</section>
-		{/if}
-	</main>
+      {#if showThanks}
+        <section class="section thanks reveal" id="thank-you">
+          <div class="thanks-card">
+            <h2>Thanks! Your request has been sent.</h2>
+            <p>A specialist will contact you shortly to confirm next steps.</p>
+            <a class="btn secondary" href="tel:+14388153412">Call now</a>
+          </div>
+        </section>
+      {/if}
+    {/if}
+  </main>
 
   <footer class="footer">
     {#if lang === "fr"}
