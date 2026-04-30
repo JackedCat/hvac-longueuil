@@ -422,18 +422,24 @@
       </section>
 
       <section class="section popular-searches reveal" id="recherches">
-        <div class="section-header">
-          <p class="eyebrow">Recherches locales fréquentes</p>
-          <h2>Des pages ciblées pour les besoins CVAC les plus demandés.</h2>
-        </div>
-        <div class="keyword-cards">
-          {#each featuredServicePages as service}
-            <article class="keyword-card">
-              <h3>{service.titleFr}</h3>
-              <p>{service.descriptionFr}</p>
-              <a href={`/services/${service.slug}`}>Voir le service</a>
-            </article>
-          {/each}
+        <div class="service-directory">
+          <div class="directory-intro">
+            <p class="eyebrow">Services CVAC populaires</p>
+            <h2>Trouvez rapidement le service qui correspond à votre besoin.</h2>
+            <p>
+              Accès direct aux pages utiles pour l'installation, la réparation,
+              l'entretien et la ventilation à {site.city}.
+            </p>
+            <a class="btn secondary" href="#contact">Demander une soumission</a>
+          </div>
+          <div class="service-link-list" aria-label="Services CVAC fréquents">
+            {#each featuredServicePages as service}
+              <a href={`/services/${service.slug}`}>
+                <span>{service.titleFr}</span>
+                <small>Voir le service</small>
+              </a>
+            {/each}
+          </div>
         </div>
       </section>
 
@@ -1547,48 +1553,73 @@
   }
 
   .popular-searches {
-    padding-top: 3rem;
+    padding: 2.5rem 0;
   }
 
-  .keyword-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
-  }
-
-  .keyword-card {
+  .service-directory {
     background: #fff;
     border: 1px solid rgba(27, 42, 58, 0.08);
-    border-radius: 20px;
+    border-radius: 28px;
     box-shadow: var(--shadow);
     display: grid;
-    gap: 0.7rem;
-    grid-template-rows: auto 1fr auto;
-    padding: 1.3rem;
+    gap: 2rem;
+    grid-template-columns: minmax(260px, 0.8fr) minmax(360px, 1.2fr);
+    padding: 2rem;
+  }
+
+  .directory-intro {
+    align-content: start;
+    display: grid;
+  }
+
+  .directory-intro h2 {
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+  }
+
+  .directory-intro p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 1.2rem;
+  }
+
+  .service-link-list {
+    display: grid;
+    gap: 0.65rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-link-list a {
+    align-items: center;
+    background: #f8fafb;
+    border: 1px solid rgba(27, 42, 58, 0.08);
+    border-radius: 16px;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    min-height: 58px;
+    padding: 0.8rem 0.95rem;
     transition:
+      background 0.2s ease,
       border-color 0.2s ease,
       transform 0.2s ease;
   }
 
-  .keyword-card:hover {
+  .service-link-list a:hover {
+    background: rgba(75, 179, 212, 0.08);
     border-color: rgba(75, 179, 212, 0.34);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
-  .keyword-card h3 {
-    font-size: 1.05rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .keyword-card p {
-    color: var(--muted);
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .keyword-card a {
-    color: var(--sea);
+  .service-link-list span {
     font-weight: 700;
+    line-height: 1.25;
+  }
+
+  .service-link-list small {
+    color: var(--sea);
+    flex: 0 0 auto;
+    font-weight: 800;
+    white-space: nowrap;
   }
 
   .highlight {
@@ -1852,6 +1883,16 @@
       align-items: center;
       text-align: center;
     }
+
+    .service-directory {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      padding: 1.4rem;
+    }
+
+    .service-link-list {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 600px) {
@@ -1869,6 +1910,33 @@
 
     .contact-card {
       padding: 2rem;
+    }
+
+    .popular-searches {
+      padding: 1.75rem 0;
+    }
+
+    .directory-intro .btn {
+      box-sizing: border-box;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .service-link-list {
+      gap: 0.5rem;
+    }
+
+    .service-link-list a {
+      min-height: 50px;
+      padding: 0.75rem 0.85rem;
+    }
+
+    .service-link-list span {
+      font-size: 0.94rem;
+    }
+
+    .service-link-list small {
+      font-size: 0.78rem;
     }
   }
 </style>
