@@ -3,9 +3,12 @@
   import { site } from "$lib/data/site.config";
   import { serviceAreas } from "$lib/data/locations";
   import { servicePages } from "$lib/data/services";
+  import mainHero from "$lib/assets/Main.png";
 
   let lang = $state("fr");
   let showThanks = $state(false);
+  let selectedServiceFr = $state("Thermopompe");
+  let selectedServiceEn = $state("Heat pump");
   const featuredServicePages = servicePages.slice(0, 10);
 
   const faqsFr = [
@@ -344,51 +347,13 @@
         </div>
         <div class="hero-visual reveal delay-1">
           <div class="visual-card">
-            <svg viewBox="0 0 420 300" aria-hidden="true">
-              <rect
-                x="28"
-                y="60"
-                width="180"
-                height="180"
-                rx="20"
-                fill="#e7f1ff"
-              />
-              <rect
-                x="220"
-                y="40"
-                width="170"
-                height="210"
-                rx="24"
-                fill="#f7f4ea"
-              />
-              <circle cx="308" cy="144" r="56" fill="#1c2b3a" />
-              <circle cx="308" cy="144" r="40" fill="#f4b83f" />
-              <circle cx="308" cy="144" r="10" fill="#1c2b3a" />
-              <rect
-                x="58"
-                y="90"
-                width="120"
-                height="20"
-                rx="8"
-                fill="#1c2b3a"
-              />
-              <rect
-                x="58"
-                y="130"
-                width="120"
-                height="20"
-                rx="8"
-                fill="#8aa2b4"
-              />
-              <rect
-                x="58"
-                y="170"
-                width="120"
-                height="20"
-                rx="8"
-                fill="#8aa2b4"
-              />
-            </svg>
+            <img
+              class="hero-image"
+              src={mainHero}
+              alt="Technicien CVAC près d'une unité de thermopompe"
+              decoding="async"
+              fetchpriority="high"
+            />
             <div class="visual-caption">
               <p>Équipements performants</p>
               <span>Rendement énergétique optimisé</span>
@@ -662,7 +627,7 @@
             </label>
             <label>
               Service recherché
-              <select name="service">
+              <select name="service" bind:value={selectedServiceFr}>
                 <option>Thermopompe</option>
                 <option>Climatisation</option>
                 <option>Chauffage</option>
@@ -677,8 +642,14 @@
                 name="message"
                 rows="4"
                 placeholder="Dites-nous ce dont vous avez besoin"
+                required={selectedServiceFr === "Autre"}
               ></textarea>
             </label>
+            {#if selectedServiceFr === "Autre"}
+              <p class="form-note required-note">
+                Précisez le service recherché dans le message.
+              </p>
+            {/if}
             <button class="btn primary" type="submit"
               >Obtenir une soumission gratuite</button
             >
@@ -738,51 +709,13 @@
         </div>
         <div class="hero-visual reveal delay-1">
           <div class="visual-card">
-            <svg viewBox="0 0 420 300" aria-hidden="true">
-              <rect
-                x="28"
-                y="60"
-                width="180"
-                height="180"
-                rx="20"
-                fill="#e7f1ff"
-              />
-              <rect
-                x="220"
-                y="40"
-                width="170"
-                height="210"
-                rx="24"
-                fill="#f7f4ea"
-              />
-              <circle cx="308" cy="144" r="56" fill="#1c2b3a" />
-              <circle cx="308" cy="144" r="40" fill="#f4b83f" />
-              <circle cx="308" cy="144" r="10" fill="#1c2b3a" />
-              <rect
-                x="58"
-                y="90"
-                width="120"
-                height="20"
-                rx="8"
-                fill="#1c2b3a"
-              />
-              <rect
-                x="58"
-                y="130"
-                width="120"
-                height="20"
-                rx="8"
-                fill="#8aa2b4"
-              />
-              <rect
-                x="58"
-                y="170"
-                width="120"
-                height="20"
-                rx="8"
-                fill="#8aa2b4"
-              />
-            </svg>
+            <img
+              class="hero-image"
+              src={mainHero}
+              alt="HVAC technician beside a heat pump unit"
+              decoding="async"
+              fetchpriority="high"
+            />
             <div class="visual-caption">
               <p>High-efficiency equipment</p>
               <span>Optimized energy performance</span>
@@ -1034,7 +967,7 @@
             </label>
             <label>
               Service needed
-              <select name="service">
+              <select name="service" bind:value={selectedServiceEn}>
                 <option>Heat pump</option>
                 <option>Air conditioning</option>
                 <option>Heating</option>
@@ -1049,8 +982,14 @@
                 name="message"
                 rows="4"
                 placeholder="Tell us what you need"
+                required={selectedServiceEn === "Other"}
               ></textarea>
             </label>
+            {#if selectedServiceEn === "Other"}
+              <p class="form-note required-note">
+                Please describe the service needed in the message.
+              </p>
+            {/if}
             <button class="btn primary" type="submit">Get a free quote</button>
             <p class="form-note">
               By submitting, you agree to be contacted by phone or text.
@@ -1444,15 +1383,21 @@
   .visual-card {
     background: #fff;
     border-radius: 28px;
-    padding: 1.8rem;
+    padding: 1rem;
     box-shadow: var(--shadow);
     display: grid;
     gap: 1rem;
+    overflow: hidden;
   }
 
-  .visual-card svg {
+  .hero-image {
+    aspect-ratio: 3 / 2;
+    background: #e9f4fb;
+    border-radius: 20px;
+    display: block;
+    object-fit: contain;
+    object-position: center;
     width: 100%;
-    height: auto;
   }
 
   .visual-caption p {
@@ -1481,6 +1426,20 @@
     margin-bottom: 2.5rem;
   }
 
+  .services {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(231, 241, 255, 0.58));
+    border: 1px solid rgba(27, 42, 58, 0.08);
+    border-radius: 32px;
+    margin: 2rem 0;
+    padding: 3rem;
+  }
+
+  .services .section-header {
+    display: grid;
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+  }
+
   .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -1496,9 +1455,99 @@
     gap: 0.8rem;
   }
 
+  .services .cards {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .services .card {
+    border: 1px solid rgba(27, 42, 58, 0.08);
+    grid-template-rows: auto 1fr auto;
+    min-height: 245px;
+    padding: 1.4rem;
+    position: relative;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .services .card::before {
+    background: linear-gradient(135deg, rgba(75, 179, 212, 0.16), rgba(243, 180, 63, 0.16));
+    border-radius: 14px;
+    color: var(--ink);
+    content: "";
+    height: 42px;
+    margin-bottom: 0.3rem;
+    width: 42px;
+  }
+
+  .services .card:nth-child(1)::before {
+    content: "TP";
+  }
+
+  .services .card:nth-child(2)::before {
+    content: "AC";
+  }
+
+  .services .card:nth-child(3)::before {
+    content: "CH";
+  }
+
+  .services .card:nth-child(4)::before {
+    content: "VT";
+  }
+
+  .services .card:nth-child(5)::before {
+    content: "EN";
+  }
+
+  .services .card::before {
+    align-items: center;
+    display: flex;
+    font-family: "Urbanist", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+    justify-content: center;
+    letter-spacing: 0.04em;
+  }
+
+  .services .card:hover {
+    border-color: rgba(75, 179, 212, 0.35);
+    box-shadow: 0 22px 42px rgba(18, 34, 52, 0.14);
+    transform: translateY(-3px);
+  }
+
+  .services .card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+  }
+
+  .services .card p {
+    color: var(--muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
   .card a {
     color: var(--sea);
     font-weight: 600;
+  }
+
+  .services .card a {
+    align-items: center;
+    border-top: 1px solid rgba(27, 42, 58, 0.08);
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.9rem;
+  }
+
+  .services .card a::after {
+    content: "→";
+    font-family: "Urbanist", sans-serif;
+  }
+
+  .popular-searches {
+    padding-top: 3rem;
   }
 
   .keyword-cards {
@@ -1514,7 +1563,16 @@
     box-shadow: var(--shadow);
     display: grid;
     gap: 0.7rem;
+    grid-template-rows: auto 1fr auto;
     padding: 1.3rem;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .keyword-card:hover {
+    border-color: rgba(75, 179, 212, 0.34);
+    transform: translateY(-2px);
   }
 
   .keyword-card h3 {
@@ -1641,6 +1699,7 @@
   }
 
   .faq-grid {
+    align-items: start;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.2rem;
@@ -1651,6 +1710,7 @@
     border-radius: 16px;
     padding: 1rem 1.2rem;
     box-shadow: var(--shadow);
+    align-self: start;
   }
 
   summary {
@@ -1709,6 +1769,11 @@
     font-size: 0.8rem;
     color: var(--muted);
     margin: 0;
+  }
+
+  .required-note {
+    color: #d3972b;
+    font-weight: 700;
   }
 
   .hp-field {
