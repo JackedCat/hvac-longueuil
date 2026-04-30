@@ -4,6 +4,7 @@
   import { serviceAreas } from "$lib/data/locations";
   import { servicePages } from "$lib/data/services";
   import mainHero from "$lib/assets/Main.png";
+  import mainHeroEn from "$lib/assets/Main(eng).png";
 
   let lang = $state("fr");
   let showThanks = $state(false);
@@ -717,7 +718,7 @@
           <div class="visual-card">
             <img
               class="hero-image"
-              src={mainHero}
+              src={mainHeroEn}
               alt="HVAC technician beside a heat pump unit"
               decoding="async"
               fetchpriority="high"
