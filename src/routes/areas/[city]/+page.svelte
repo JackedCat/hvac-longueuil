@@ -1,23 +1,75 @@
 <script>
   import { site } from "$lib/data/site.config";
+  import { servicePages } from "$lib/data/services";
 
   export let data;
   const { area } = data;
+  const areaServicePages = servicePages.slice(0, 8);
+
+  const areaFaqs = [
+    {
+      question: `Quels services CVAC sont offerts ${area.inFr}?`,
+      answer: `Les demandes peuvent couvrir thermopompe, climatisation, chauffage, ventilation, entretien annuel CVAC et diagnostic de système existant ${area.inFr}.`
+    },
+    {
+      question: `Puis-je demander une soumission pour ${area.name}?`,
+      answer:
+        "Oui. Une demande peut être envoyée par téléphone ou par formulaire afin de confirmer le besoin, l'adresse et le type d'intervention."
+    }
+  ];
+
+  const getLocalBusinessJsonLd = () =>
+    JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: site.brand,
+      description: `Services CVAC ${area.inFr}: thermopompe, climatisation, chauffage, ventilation et entretien.`,
+      areaServed: area.name,
+      telephone: site.phone,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: site.city,
+        addressRegion: site.region,
+        addressCountry: "CA"
+      }
+    });
+
+  const getFaqJsonLd = () =>
+    JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: areaFaqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer
+        }
+      }))
+    });
 </script>
 
 <svelte:head>
-  <title>{site.serviceFr} {area.name} | Service local</title>
+  <title>{site.serviceFr} {area.name} | Thermopompe, climatisation et chauffage</title>
   <meta
     name="description"
-    content={`Service ${site.serviceFr} à ${area.name} : thermopompes, chauffage, climatisation, ventilation et entretien.`}
+    content={`Service ${site.serviceFr} ${area.inFr} : thermopompe, chauffage, climatisation, ventilation commerciale, entretien annuel et réparation.`}
   />
+  <meta name="keywords" content={`${site.serviceFr} ${area.name}, ${area.focusFr.join(", ")}`} />
   <meta property="og:title" content={`${site.serviceFr} ${area.name}`} />
   <meta
     property="og:description"
-    content={`Interventions ${site.serviceFr} à ${area.name} avec des solutions claires et adaptées.`}
+    content={`Interventions ${site.serviceFr} ${area.inFr} pour thermopompe, climatisation, chauffage et ventilation.`}
   />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_CA" />
+  <link rel="canonical" href={`https://cvaclongueuil.ca/areas/${area.slug}`} />
+  <script type="application/ld+json">
+{getLocalBusinessJsonLd()}
+  </script>
+  <script type="application/ld+json">
+{getFaqJsonLd()}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -30,7 +82,7 @@
   <header class="area-hero">
     <a class="back-link" href="/">← Retour à {site.city}</a>
     <p class="eyebrow">Service local {site.serviceFr}</p>
-    <h1>{site.serviceFr} à {area.name}</h1>
+    <h1>{site.serviceFr} {area.inFr}</h1>
     <p class="lead">{area.descriptionFr}</p>
     <div class="cta-row">
       <a class="btn primary" href={site.phoneHref}>Appeler maintenant</a>
@@ -39,7 +91,7 @@
   </header>
 
   <section class="area-section">
-    <h2>Points clés pour {area.name}</h2>
+    <h2>Services recherchés {area.inFr}</h2>
     <ul>
       {#each area.focusFr as item}
         <li>{item}</li>
@@ -47,19 +99,36 @@
     </ul>
   </section>
 
-  <section class="area-section">
-    <h2>English summary</h2>
-    <p>{area.descriptionEn}</p>
-    <ul>
-      {#each area.focusEn as item}
-        <li>{item}</li>
+  <section class="area-section service-links">
+    <div>
+      <h2>Pages utiles pour comparer les options</h2>
+      <p>
+        Choisissez un besoin précis pour voir les informations sur
+        l'installation, la réparation, l'entretien ou la ventilation.
+      </p>
+    </div>
+    <div class="link-grid">
+      {#each areaServicePages as service}
+        <a href={`/services/${service.slug}`}>{service.titleFr}</a>
       {/each}
-    </ul>
+    </div>
+  </section>
+
+  <section class="area-section">
+    <h2>Questions fréquentes pour {area.name}</h2>
+    <div class="faq-grid">
+      {#each areaFaqs as faq}
+        <details>
+          <summary>{faq.question}</summary>
+          <p>{faq.answer}</p>
+        </details>
+      {/each}
+    </div>
   </section>
 
   <section class="area-section contact-block">
     <h2>Contact rapide</h2>
-    <p>Appelez-nous pour planifier une visite dans {area.name}.</p>
+    <p>Appelez-nous pour planifier une visite {area.inFr}.</p>
     <a class="btn primary" href={site.phoneHref}>{site.phone}</a>
   </section>
 </main>
@@ -157,6 +226,48 @@
     color: #5e6c7a;
     display: grid;
     gap: 0.4rem;
+  }
+
+  .service-links {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .service-links p {
+    color: #5e6c7a;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .link-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .link-grid a {
+    background: #f6f4ef;
+    border: 1px solid rgba(27, 42, 58, 0.1);
+    border-radius: 999px;
+    color: #1b2a3a;
+    font-weight: 600;
+    padding: 0.65rem 0.9rem;
+  }
+
+  .faq-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  details {
+    border: 1px solid rgba(27, 42, 58, 0.1);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+  }
+
+  summary {
+    cursor: pointer;
+    font-weight: 700;
   }
 
   .contact-block {

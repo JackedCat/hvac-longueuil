@@ -7,6 +7,9 @@
     <loc>https://cvaclongueuil.ca/areas/longueuil</loc>
   </url>
   <url>
+    <loc>https://cvaclongueuil.ca/areas/le-vieux-longueuil</loc>
+  </url>
+  <url>
     <loc>https://cvaclongueuil.ca/areas/saint-hubert</loc>
   </url>
   <url>
@@ -14,5 +17,38 @@
   </url>
   <url>
     <loc>https://cvaclongueuil.ca/areas/brossard</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/installation-thermopompe-longueuil</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/reparation-thermopompe-longueuil</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/climatisation-longueuil</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/installation-climatisation-longueuil</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/chauffage-longueuil</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/reparation-chauffage-longueuil</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/ventilation-longueuil</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/ventilation-commerciale-longueuil</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/entretien-cvac-longueuil</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/systeme-cvac</loc>
+  </url>
+  <url>
+    <loc>https://cvaclongueuil.ca/services/echangeur-de-chaleur-longueuil</loc>
   </url>
 </urlset>

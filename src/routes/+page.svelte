@@ -2,9 +2,11 @@
   import { onMount } from "svelte";
   import { site } from "$lib/data/site.config";
   import { serviceAreas } from "$lib/data/locations";
+  import { servicePages } from "$lib/data/services";
 
   let lang = $state("fr");
   let showThanks = $state(false);
+  const featuredServicePages = servicePages.slice(0, 10);
 
   const faqsFr = [
     {
@@ -26,6 +28,21 @@
       question: "Quel entretien recommandez-vous?",
       answer:
         "Un entretien annuel avec nettoyage et inspection complète aide à garder de bonnes performances.",
+    },
+    {
+      question: "Que veut dire CVAC?",
+      answer:
+        "CVAC signifie chauffage, ventilation et climatisation. Un système CVAC peut inclure thermopompe, climatiseur, chauffage, échangeur d'air, conduits et contrôles.",
+    },
+    {
+      question: "Offrez-vous un contrat d'entretien annuel CVAC?",
+      answer:
+        "Oui, une demande peut être faite pour planifier l'entretien annuel d'un climatiseur, d'une thermopompe, d'un système de chauffage ou de ventilation.",
+    },
+    {
+      question: "Pouvez-vous aider pour la ventilation commerciale?",
+      answer:
+        "Oui, les demandes de ventilation commerciale à Longueuil peuvent être évaluées selon le type de local, l'occupation et les besoins de débit d'air.",
     },
   ];
 
@@ -49,6 +66,16 @@
       question: "What maintenance do you recommend?",
       answer:
         "An annual cleaning and inspection keeps performance and efficiency on track.",
+    },
+    {
+      question: "What does HVAC mean?",
+      answer:
+        "HVAC stands for heating, ventilation, and air conditioning. A system can include heat pumps, air conditioners, heating equipment, ventilation, ductwork, and controls.",
+    },
+    {
+      question: "Do you offer annual HVAC maintenance?",
+      answer:
+        "Yes. You can request planned maintenance for air conditioners, heat pumps, heating systems, or ventilation equipment.",
     },
   ];
 
@@ -91,6 +118,18 @@
         language === "fr"
           ? `Services ${site.serviceFr} à ${site.city} : thermopompes, climatisation, chauffage, ventilation, entretien.`
           : `${site.serviceEn} services in ${site.city}: heat pumps, air conditioning, heating, ventilation, maintenance.`,
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Services CVAC",
+        itemListElement: servicePages.map((service) => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: service.titleFr,
+            description: service.descriptionFr,
+          },
+        })),
+      },
       areaServed: serviceAreas.map((area) => area.name),
       telephone: site.phone,
       address: {
@@ -148,23 +187,23 @@
   {#if lang === "fr"}
     <title
       >{site.serviceFr}
-      {site.city} | Thermopompes, Climatisation & Chauffage</title
+      {site.city} | Thermopompe, Climatisation, Chauffage & Ventilation</title
     >
     <meta
       name="description"
-      content={`Service ${site.serviceFr} à ${site.city} : thermopompes, climatisation, chauffage, ventilation, entretien et réparation. Soumission gratuite et service local.`}
+      content={`Service ${site.serviceFr} à ${site.city} : installation et réparation de thermopompe, climatisation, chauffage, ventilation, entretien annuel et échangeur d'air.`}
     />
     <meta
       name="keywords"
-      content={`${site.serviceFr} ${site.city}, thermopompe ${site.city}, climatisation ${site.city}, chauffage ${site.city}`}
+      content={`${site.serviceFr} ${site.city}, thermopompe ${site.city}, climatisation ${site.city}, chauffage ${site.city}, ventilation ${site.city}, réparation thermopompe ${site.city}, installation climatisation ${site.city}, contrat d entretien annuel cvac`}
     />
     <meta
       property="og:title"
-      content={`${site.serviceFr} ${site.city} | Confort résidentiel et commercial`}
+      content={`${site.serviceFr} ${site.city} | Thermopompe, climatisation, chauffage et ventilation`}
     />
     <meta
       property="og:description"
-      content={`Thermopompes, climatisation, chauffage et entretien à ${site.city}. Appel rapide pour une soumission.`}
+      content={`Installation, réparation et entretien CVAC à ${site.city}. Thermopompe, climatisation, chauffage, ventilation et échangeur d'air.`}
     />
     <meta property="og:locale" content="fr_CA" />
   {:else}
@@ -187,6 +226,7 @@
     />
     <meta property="og:locale" content="en_CA" />
   {/if}
+  <link rel="canonical" href="https://cvaclongueuil.ca/" />
   <meta property="og:type" content="website" />
   <script type="application/ld+json">
 {getLocalBusinessJsonLd(lang)}
@@ -230,6 +270,7 @@
       </div>
       <div class="nav-links">
         <a href="#services">{lang === "fr" ? "Services" : "Services"}</a>
+        <a href="#recherches">{lang === "fr" ? "Recherches" : "Searches"}</a>
         <a href="#processus">{lang === "fr" ? "Processus" : "Process"}</a>
         <a href="#engagements"
           >{lang === "fr" ? "Engagements" : "Commitments"}</a
@@ -266,11 +307,14 @@
       <section class="hero">
         <div class="hero-content reveal">
           <p class="eyebrow">Thermopompes • Climatisation • Chauffage</p>
-          <h1>Redécouvrez le confort à {site.city}.</h1>
+          <h1>
+            {site.serviceFr} à {site.city} : thermopompe, climatisation,
+            chauffage et ventilation
+          </h1>
           <p class="lead">
-            Installation, réparation et entretien {site.serviceFr} par des professionnels
-            qualifiés. Devis transparents et solutions adaptées aux maisons et commerces
-            de {site.city}.
+            Installation, réparation et entretien {site.serviceFr} par des
+            professionnels qualifiés. Devis transparents pour thermopompe,
+            climatiseur, système de chauffage, ventilation et échangeur d'air.
           </p>
           <div class="cta-row">
             <a class="btn primary" href={site.phoneHref}>Appeler maintenant</a>
@@ -368,43 +412,63 @@
           <article class="card">
             <h3>Thermopompes</h3>
             <p>
-              Installation et remplacement de thermopompes murales et centrales
-              adaptées à {site.city}.
+              Installation, remplacement et réparation de thermopompes murales
+              et centrales adaptées à {site.city}.
             </p>
-            <a href="#contact">Demander une évaluation</a>
+            <a href="/services/installation-thermopompe-longueuil"
+              >Installation thermopompe</a
+            >
           </article>
           <article class="card">
             <h3>Climatisation</h3>
             <p>
-              Refroidissement silencieux et efficace pour les journées chaudes.
-              Entretien et réparation rapide.
+              Installation de climatisation, entretien de climatiseur et
+              réparation rapide lorsque le refroidissement devient irrégulier.
             </p>
-            <a href="#contact">Soumission gratuite</a>
+            <a href="/services/climatisation-longueuil"
+              >Climatisation Longueuil</a
+            >
           </article>
           <article class="card">
             <h3>Chauffage</h3>
             <p>
-              Optimisation des systèmes électriques, gaz ou mazout. Diagnostics
-              précis et sécuritaires.
+              Installation, optimisation et réparation de chauffage pour un
+              système fiable pendant les périodes froides.
             </p>
-            <a href="#contact">Parler à un expert</a>
+            <a href="/services/chauffage-longueuil">Chauffage Longueuil</a>
           </article>
           <article class="card">
             <h3>Ventilation</h3>
             <p>
-              Qualité de l’air, échangeurs d’air et équilibrage des conduits
-              pour un confort durable.
+              Ventilation résidentielle et commerciale, qualité de l'air,
+              échangeurs d'air et équilibrage des conduits.
             </p>
-            <a href="#contact">Planifier une visite</a>
+            <a href="/services/ventilation-longueuil">Ventilation Longueuil</a>
           </article>
           <article class="card">
             <h3>Entretien {site.serviceFr}</h3>
             <p>
-              Contrats d’entretien préventif pour réduire les pannes et
-              prolonger la durée de vie.
+              Contrat d'entretien annuel CVAC, maintenance de thermopompe,
+              entretien de climatiseur et inspection saisonnière.
             </p>
-            <a href="#contact">Voir les forfaits</a>
+            <a href="/services/entretien-cvac-longueuil">Entretien annuel</a>
           </article>
+        </div>
+      </section>
+
+      <section class="section popular-searches reveal" id="recherches">
+        <div class="section-header">
+          <p class="eyebrow">Recherches locales fréquentes</p>
+          <h2>Des pages ciblées pour les besoins CVAC les plus demandés.</h2>
+        </div>
+        <div class="keyword-cards">
+          {#each featuredServicePages as service}
+            <article class="keyword-card">
+              <h3>{service.titleFr}</h3>
+              <p>{service.descriptionFr}</p>
+              <a href={`/services/${service.slug}`}>Voir le service</a>
+            </article>
+          {/each}
         </div>
       </section>
 
@@ -1435,6 +1499,38 @@
   .card a {
     color: var(--sea);
     font-weight: 600;
+  }
+
+  .keyword-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  .keyword-card {
+    background: #fff;
+    border: 1px solid rgba(27, 42, 58, 0.08);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 0.7rem;
+    padding: 1.3rem;
+  }
+
+  .keyword-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .keyword-card p {
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .keyword-card a {
+    color: var(--sea);
+    font-weight: 700;
   }
 
   .highlight {
