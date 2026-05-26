@@ -1,6 +1,7 @@
 <script>
   import { site } from "$lib/data/site.config";
   import { servicePages } from "$lib/data/services";
+  import { jsonLdScript } from "$lib/seo/jsonld";
 
   export let data;
   const { area } = data;
@@ -23,6 +24,7 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       name: site.brand,
+      url: site.url,
       description: `Services CVAC ${area.inFr}: thermopompe, climatisation, chauffage, ventilation et entretien.`,
       areaServed: area.name,
       telephone: site.phone,
@@ -63,13 +65,9 @@
   />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_CA" />
-  <link rel="canonical" href={`https://cvaclongueuil.ca/areas/${area.slug}`} />
-  <script type="application/ld+json">
-{getLocalBusinessJsonLd()}
-  </script>
-  <script type="application/ld+json">
-{getFaqJsonLd()}
-  </script>
+  <link rel="canonical" href={`${site.url}/areas/${area.slug}`} />
+  {@html jsonLdScript(getLocalBusinessJsonLd())}
+  {@html jsonLdScript(getFaqJsonLd())}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link

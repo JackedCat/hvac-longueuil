@@ -3,14 +3,17 @@
   import { site } from "$lib/data/site.config";
   import { serviceAreas } from "$lib/data/locations";
   import { servicePages } from "$lib/data/services";
-  import mainHero from "$lib/assets/Main.png";
-  import mainHeroEn from "$lib/assets/Main(eng).png";
+  import { jsonLdScript } from "$lib/seo/jsonld";
+  import mainHero from "$lib/assets/hero-fr.jpg";
+  import mainHeroEn from "$lib/assets/hero-en.jpg";
 
   let lang = $state("fr");
   let showThanks = $state(false);
   let selectedServiceFr = $state("Thermopompe");
   let selectedServiceEn = $state("Heat pump");
-  const featuredServicePages = servicePages.slice(0, 10);
+  const featuredServicePages = [...servicePages]
+    .sort((a, b) => (a.featuredOrder ?? 99) - (b.featuredOrder ?? 99))
+    .slice(0, 10);
 
   const faqsFr = [
     {
@@ -22,6 +25,11 @@
       question: "Offrez-vous un service d’urgence?",
       answer:
         "Oui, des plages d’urgence sont disponibles pour les pannes critiques, surtout en période de grand froid.",
+    },
+    {
+      question: "Offrez-vous un service de chauffage à Longueuil?",
+      answer:
+        "Oui. Les demandes de chauffage à Longueuil peuvent couvrir le diagnostic, la réparation, l'installation, l'entretien ou l'optimisation d'un système existant.",
     },
     {
       question: "Aidez-vous avec les subventions?",
@@ -118,6 +126,7 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       name: site.brand,
+      url: site.url,
       description:
         language === "fr"
           ? `Services ${site.serviceFr} à ${site.city} : thermopompes, climatisation, chauffage, ventilation, entretien.`
@@ -189,25 +198,22 @@
 
 <svelte:head>
   {#if lang === "fr"}
-    <title
-      >{site.serviceFr}
-      {site.city} | Thermopompe, Climatisation, Chauffage & Ventilation</title
-    >
+    <title>Chauffage {site.city} | {site.serviceFr}, thermopompe et climatisation</title>
     <meta
       name="description"
-      content={`Service ${site.serviceFr} à ${site.city} : installation et réparation de thermopompe, climatisation, chauffage, ventilation, entretien annuel et échangeur d'air.`}
+      content={`Service de chauffage à ${site.city} avec diagnostic, réparation, installation et entretien ${site.serviceFr}. Thermopompe, climatisation, ventilation et soumission rapide.`}
     />
     <meta
       name="keywords"
-      content={`${site.serviceFr} ${site.city}, thermopompe ${site.city}, climatisation ${site.city}, chauffage ${site.city}, ventilation ${site.city}, réparation thermopompe ${site.city}, installation climatisation ${site.city}, contrat d entretien annuel cvac`}
+      content={`chauffage ${site.city}, service chauffage ${site.city}, réparation chauffage ${site.city}, ${site.serviceFr} ${site.city}, thermopompe ${site.city}, climatisation ${site.city}, ventilation ${site.city}, réparation thermopompe ${site.city}, installation climatisation ${site.city}, contrat d entretien annuel cvac`}
     />
     <meta
       property="og:title"
-      content={`${site.serviceFr} ${site.city} | Thermopompe, climatisation, chauffage et ventilation`}
+      content={`Chauffage ${site.city} | ${site.serviceFr}, thermopompe et climatisation`}
     />
     <meta
       property="og:description"
-      content={`Installation, réparation et entretien CVAC à ${site.city}. Thermopompe, climatisation, chauffage, ventilation et échangeur d'air.`}
+      content={`Diagnostic, réparation et installation de chauffage à ${site.city}. Services ${site.serviceFr}, thermopompe, climatisation et ventilation.`}
     />
     <meta property="og:locale" content="fr_CA" />
   {:else}
@@ -230,14 +236,10 @@
     />
     <meta property="og:locale" content="en_CA" />
   {/if}
-  <link rel="canonical" href="https://cvaclongueuil.ca/" />
+  <link rel="canonical" href={`${site.url}/`} />
   <meta property="og:type" content="website" />
-  <script type="application/ld+json">
-{getLocalBusinessJsonLd(lang)}
-  </script>
-  <script type="application/ld+json">
-{getFaqJsonLd(lang)}
-  </script>
+  {@html jsonLdScript(getLocalBusinessJsonLd(lang))}
+  {@html jsonLdScript(getFaqJsonLd(lang))}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -312,13 +314,13 @@
         <div class="hero-content reveal">
           <p class="eyebrow">Thermopompes • Climatisation • Chauffage</p>
           <h1>
-            {site.serviceFr} à {site.city} : thermopompe, climatisation,
-            chauffage et ventilation
+            Chauffage {site.city}, {site.serviceFr} et climatisation sur la
+            Rive-Sud
           </h1>
           <p class="lead">
-            Installation, réparation et entretien {site.serviceFr} par des
-            professionnels qualifiés. Devis transparents pour thermopompe,
-            climatiseur, système de chauffage, ventilation et échangeur d'air.
+            Besoin d'un service de chauffage à {site.city}? Demandez un
+            diagnostic clair, une réparation, une installation ou un entretien
+            {site.serviceFr} avec des options expliquées avant les travaux.
           </p>
           <div class="cta-row">
             <a class="btn primary" href={site.phoneHref}>Appeler maintenant</a>
@@ -396,10 +398,11 @@
             >
           </article>
           <article class="card">
-            <h3>Chauffage</h3>
+            <h3>Chauffage Longueuil</h3>
             <p>
-              Installation, optimisation et réparation de chauffage pour un
-              système fiable pendant les périodes froides.
+              Diagnostic, installation, optimisation et réparation de chauffage
+              à {site.city} pour garder un système fiable pendant les périodes
+              froides.
             </p>
             <a href="/services/chauffage-longueuil">Chauffage Longueuil</a>
           </article>
@@ -429,7 +432,7 @@
             <h2>Trouvez rapidement le service qui correspond à votre besoin.</h2>
             <p>
               Accès direct aux pages utiles pour l'installation, la réparation,
-              l'entretien et la ventilation à {site.city}.
+              l'entretien, la ventilation et le chauffage à {site.city}.
             </p>
             <a class="btn secondary" href="#contact">Demander une soumission</a>
           </div>
@@ -467,7 +470,7 @@
         <div class="visual-grid">
           <figure>
             <img
-              src="/images/kettenreaktion-l_Vn4HlFQVw-unsplash.jpg"
+              src="/images/thermopompe-exterieure-1200.jpg"
               alt="Thermopompe extérieure installée dans une cour résidentielle"
               loading="lazy"
             />
@@ -477,7 +480,7 @@
           </figure>
           <figure>
             <img
-              src="/images/maxwell-odonkor-32sdOfMXRC8-unsplash.jpg"
+              src="/images/service-cvac-technicien-1200.jpg"
               alt="Technicien en service CVAC en intervention sur un système de climatisation"
               loading="lazy"
             />
@@ -487,7 +490,7 @@
           </figure>
           <figure>
             <img
-              src="/images/pexels-kathleen-austin-kuhn-2152973960-32497161.jpg"
+              src="/images/ventilation-interieure-1200.jpg"
               alt="Détail d'un équipement de ventilation intérieur moderne"
               loading="lazy"
             />
@@ -807,7 +810,7 @@
         <div class="visual-grid">
           <figure>
             <img
-              src="/images/kettenreaktion-l_Vn4HlFQVw-unsplash.jpg"
+              src="/images/thermopompe-exterieure-1200.jpg"
               alt="Outdoor heat pump unit installed at a residential property"
               loading="lazy"
             />
@@ -817,7 +820,7 @@
           </figure>
           <figure>
             <img
-              src="/images/maxwell-odonkor-32sdOfMXRC8-unsplash.jpg"
+              src="/images/service-cvac-technicien-1200.jpg"
               alt="HVAC technician servicing an air conditioning system"
               loading="lazy"
             />
@@ -825,7 +828,7 @@
           </figure>
           <figure>
             <img
-              src="/images/pexels-kathleen-austin-kuhn-2152973960-32497161.jpg"
+              src="/images/ventilation-interieure-1200.jpg"
               alt="Modern indoor ventilation equipment detail"
               loading="lazy"
             />

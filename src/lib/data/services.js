@@ -125,21 +125,57 @@ export const servicePages = [
   },
   {
     slug: "chauffage-longueuil",
+    featuredOrder: 1,
     titleFr: "Chauffage Longueuil",
-    h1Fr: "Service de chauffage à Longueuil",
+    metaTitleFr: "Chauffage Longueuil | Réparation, installation et service CVAC",
+    h1Fr: "Chauffage Longueuil : réparation, installation et service CVAC",
     descriptionFr:
-      "Service de chauffage à Longueuil : installation, diagnostic, réparation et optimisation de systèmes de chauffage résidentiels et commerciaux.",
+      "Service de chauffage à Longueuil : diagnostic, réparation, installation, remplacement et optimisation de systèmes résidentiels ou commerciaux.",
+    metaDescriptionFr:
+      "Besoin d'un service de chauffage à Longueuil? Diagnostic, réparation, installation et entretien de systèmes de chauffage résidentiels et commerciaux.",
     introFr:
-      "Un système de chauffage à Longueuil doit être fiable pendant les périodes froides, bien dimensionné et entretenu pour éviter les pertes de confort.",
+      "Pour un besoin de chauffage à Longueuil, l'objectif est simple : obtenir un diagnostic clair, une solution adaptée au bâtiment et une soumission transparente avant les travaux.",
     keywordsFr: [
       "chauffage longueuil",
+      "service chauffage longueuil",
       "système chauffage longueuil",
-      "chauffage et climatisation longueuil"
+      "chauffage et climatisation longueuil",
+      "réparation chauffage longueuil",
+      "installation chauffage longueuil"
     ],
     pointsFr: [
-      "Diagnostic de système de chauffage existant",
-      "Installation et remplacement selon les besoins du bâtiment",
-      "Optimisation du confort et de la consommation"
+      "Diagnostic de chauffage insuffisant, irrégulier ou bruyant",
+      "Installation et remplacement de système de chauffage selon le bâtiment",
+      "Optimisation du confort, du débit d'air et de la consommation",
+      "Coordination possible avec thermopompe, climatisation ou ventilation"
+    ],
+    contentSectionsFr: [
+      {
+        eyebrow: "Chauffage Longueuil",
+        title: "Un service local pour les pannes et les projets de chauffage",
+        text:
+          "À Longueuil, les besoins de chauffage varient entre maisons unifamiliales, condos, plex et locaux commerciaux. Une évaluation sérieuse tient compte de l'isolation, de la distribution d'air, du thermostat, de l'âge de l'équipement et des zones moins confortables."
+      },
+      {
+        eyebrow: "Réparation et remplacement",
+        title: "Choisir entre réparer, optimiser ou remplacer",
+        text:
+          "Un système qui chauffe mal n'a pas toujours besoin d'être remplacé. Le diagnostic permet de comparer les options : correction simple, entretien, réparation de composantes, remplacement d'équipement ou ajout d'une solution plus efficace comme une thermopompe adaptée au chauffage."
+      }
+    ],
+    checklistTitleFr: "Demandes fréquentes en chauffage à Longueuil",
+    checklistFr: [
+      "Chauffage qui ne démarre pas ou arrête souvent",
+      "Pièces froides malgré un thermostat élevé",
+      "Débit d'air faible, bruit ou odeur inhabituelle",
+      "Remplacement d'un système vieillissant",
+      "Ajout d'une thermopompe pour chauffage et climatisation"
+    ],
+    relatedServiceSlugs: [
+      "reparation-chauffage-longueuil",
+      "installation-thermopompe-longueuil",
+      "entretien-cvac-longueuil",
+      "climatisation-longueuil"
     ],
     faqFr: [
       {
@@ -151,6 +187,21 @@ export const servicePages = [
         question: "Pourquoi combiner chauffage et climatisation?",
         answer:
           "Un système CVAC bien planifié peut améliorer le confort annuel en regroupant chauffage, climatisation, ventilation et contrôle de l'air."
+      },
+      {
+        question: "Quand demander un service de chauffage à Longueuil?",
+        answer:
+          "Une demande est utile lorsque le chauffage devient insuffisant, irrégulier, bruyant, plus coûteux à opérer ou lorsque certaines pièces restent froides."
+      },
+      {
+        question: "Le service couvre-t-il la réparation de chauffage?",
+        answer:
+          "Oui. Une demande peut viser un diagnostic, une réparation de chauffage, un entretien, une optimisation ou une recommandation de remplacement selon l'état du système."
+      },
+      {
+        question: "Comment obtenir une soumission pour chauffage à Longueuil?",
+        answer:
+          "Vous pouvez appeler directement ou envoyer le formulaire avec le type de bâtiment, les symptômes observés et le système en place afin de recevoir un rappel."
       }
     ]
   },

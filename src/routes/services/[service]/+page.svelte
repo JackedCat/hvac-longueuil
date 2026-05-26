@@ -1,20 +1,30 @@
 <script>
   import { site } from "$lib/data/site.config";
   import { serviceAreas } from "$lib/data/locations";
+  import { servicePages } from "$lib/data/services";
+  import { jsonLdScript } from "$lib/seo/jsonld";
 
   export let data;
   const { service } = data;
+  const pageUrl = `${site.url}/services/${service.slug}`;
+  const relatedServices = (service.relatedServiceSlugs ?? [])
+    .map((slug) => servicePages.find((item) => item.slug === slug))
+    .filter(Boolean);
 
   const getServiceJsonLd = () =>
     JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Service",
       name: service.titleFr,
-      description: service.descriptionFr,
+      serviceType: service.titleFr,
+      description: service.metaDescriptionFr ?? service.descriptionFr,
+      url: pageUrl,
+      mainEntityOfPage: pageUrl,
       areaServed: serviceAreas.map((area) => area.name),
       provider: {
         "@type": "LocalBusiness",
         name: site.brand,
+        url: site.url,
         telephone: site.phone,
         address: {
           "@type": "PostalAddress",
@@ -23,6 +33,26 @@
           addressCountry: "CA"
         }
       }
+    });
+
+  const getBreadcrumbJsonLd = () =>
+    JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: site.url
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: service.titleFr,
+          item: pageUrl
+        }
+      ]
     });
 
   const getFaqJsonLd = () =>
@@ -41,23 +71,26 @@
 </script>
 
 <svelte:head>
-  <title>{service.titleFr} | {site.brand}</title>
-  <meta name="description" content={service.descriptionFr} />
+  <title>{service.metaTitleFr ?? `${service.titleFr} | ${site.brand}`}</title>
+  <meta
+    name="description"
+    content={service.metaDescriptionFr ?? service.descriptionFr}
+  />
   <meta name="keywords" content={service.keywordsFr.join(", ")} />
-  <meta property="og:title" content={`${service.titleFr} | ${site.brand}`} />
-  <meta property="og:description" content={service.descriptionFr} />
+  <meta
+    property="og:title"
+    content={service.metaTitleFr ?? `${service.titleFr} | ${site.brand}`}
+  />
+  <meta
+    property="og:description"
+    content={service.metaDescriptionFr ?? service.descriptionFr}
+  />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_CA" />
-  <link
-    rel="canonical"
-    href={`https://cvaclongueuil.ca/services/${service.slug}`}
-  />
-  <script type="application/ld+json">
-{getServiceJsonLd()}
-  </script>
-  <script type="application/ld+json">
-{getFaqJsonLd()}
-  </script>
+  <link rel="canonical" href={pageUrl} />
+  {@html jsonLdScript(getServiceJsonLd())}
+  {@html jsonLdScript(getBreadcrumbJsonLd())}
+  {@html jsonLdScript(getFaqJsonLd())}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -78,6 +111,29 @@
     </div>
   </header>
 
+  {#if service.contentSectionsFr}
+    <section class="service-section content-block">
+      <div>
+        <p class="eyebrow">Information locale</p>
+        <h2>{service.titleFr} : comprendre les options</h2>
+        <p>
+          Une page de service claire aide à choisir la bonne intervention :
+          diagnostic, réparation, entretien, remplacement ou amélioration du
+          confort.
+        </p>
+      </div>
+      <div class="content-stack">
+        {#each service.contentSectionsFr as section}
+          <article>
+            <p class="eyebrow">{section.eyebrow}</p>
+            <h3>{section.title}</h3>
+            <p>{section.text}</p>
+          </article>
+        {/each}
+      </div>
+    </section>
+  {/if}
+
   <section class="service-section">
     <div>
       <p class="eyebrow">Ce qui est évalué</p>
@@ -94,6 +150,24 @@
     </ul>
   </section>
 
+  {#if service.checklistFr}
+    <section class="service-section">
+      <div>
+        <p class="eyebrow">Besoins courants</p>
+        <h2>{service.checklistTitleFr}</h2>
+        <p>
+          Les symptômes et objectifs ci-dessous aident à préciser la demande au
+          moment de l'appel ou de la soumission.
+        </p>
+      </div>
+      <ul class="check-list">
+        {#each service.checklistFr as item}
+          <li>{item}</li>
+        {/each}
+      </ul>
+    </section>
+  {/if}
+
   <section class="service-section service-areas">
     <div>
       <p class="eyebrow">Zones desservies</p>
@@ -109,6 +183,24 @@
       {/each}
     </div>
   </section>
+
+  {#if relatedServices.length}
+    <section class="service-section related-services">
+      <div>
+        <p class="eyebrow">Services reliés</p>
+        <h2>Pages utiles pour comparer les solutions</h2>
+        <p>
+          Consultez les pages complémentaires pour préciser le type de service
+          CVAC recherché à {site.city}.
+        </p>
+      </div>
+      <div class="related-grid">
+        {#each relatedServices as related}
+          <a href={`/services/${related.slug}`}>{related.titleFr}</a>
+        {/each}
+      </div>
+    </section>
+  {/if}
 
   <section class="service-section faq-block">
     <div>
@@ -259,6 +351,43 @@
     padding-left: 1.2rem;
   }
 
+  .content-block {
+    align-items: start;
+  }
+
+  .content-stack {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .content-stack article {
+    background: #f6f4ef;
+    border: 1px solid rgba(27, 42, 58, 0.08);
+    border-radius: 18px;
+    padding: 1.2rem;
+  }
+
+  .content-stack h3 {
+    font-family: "Fraunces", serif;
+    margin: 0 0 0.6rem;
+  }
+
+  .content-stack p {
+    margin-top: 0;
+  }
+
+  .check-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .check-list li {
+    background: #f6f4ef;
+    border: 1px solid rgba(27, 42, 58, 0.08);
+    border-radius: 14px;
+    padding: 0.85rem 1rem;
+  }
+
   .area-links {
     align-content: start;
     display: flex;
@@ -275,7 +404,23 @@
     padding: 0.65rem 0.9rem;
   }
 
+  .related-grid {
+    align-content: start;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .related-grid a {
+    background: #f6f4ef;
+    border: 1px solid rgba(27, 42, 58, 0.1);
+    border-radius: 16px;
+    color: #1b2a3a;
+    font-weight: 700;
+    padding: 0.9rem 1rem;
+  }
+
   .faq-block,
+  .related-services,
   .contact-block {
     grid-template-columns: 1fr;
   }

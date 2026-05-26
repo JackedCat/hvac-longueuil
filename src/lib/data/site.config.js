@@ -1,4 +1,5 @@
 export const site = {
+  url: "https://cvaclongueuil.ca",
   brand: "CVAC Longueuil",
   shortBrand: "CVAC",
   city: "Longueuil",
