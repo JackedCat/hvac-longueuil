@@ -1,5 +1,5 @@
 export const site = {
-  url: "https://cvaclongueuil.ca",
+  url: "https://www.cvaclongueuil.ca",
   brand: "CVAC Longueuil",
   shortBrand: "CVAC",
   city: "Longueuil",

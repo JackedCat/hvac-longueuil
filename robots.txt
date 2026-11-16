@@ -1,4 +1,4 @@
 # allow crawling everything by default
 User-agent: *
 Disallow:
-Sitemap: https://cvaclongueuil.ca/sitemap.xml
+Sitemap: https://www.cvaclongueuil.ca/sitemap.xml
