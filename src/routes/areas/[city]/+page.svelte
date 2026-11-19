@@ -97,6 +97,23 @@
     </ul>
   </section>
 
+  {#if area.serviceLinks}
+    <section class="area-section service-links">
+      <div>
+        <h2>Pour une demande générale à Longueuil</h2>
+        <p>
+          Cette page présente le service CVAC à {area.name}. Pour la thermopompe, le chauffage,
+          la climatisation ou la ventilation à Longueuil, consultez la page du service concerné.
+        </p>
+      </div>
+      <div class="link-grid">
+        {#each area.serviceLinks as link}
+          <a href={link.href}>{link.label}</a>
+        {/each}
+      </div>
+    </section>
+  {/if}
+
   <section class="area-section service-links">
     <div>
       <h2>Pages utiles pour comparer les options</h2>

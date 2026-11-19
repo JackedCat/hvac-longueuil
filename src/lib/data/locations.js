@@ -34,10 +34,18 @@ export const serviceAreas = [
     name: "Saint-Hubert",
     inFr: "à Saint-Hubert",
     descriptionFr:
-      "Interventions CVAC à Saint-Hubert pour chauffage, climatisation, ventilation et échangeur d'air, avec un service réactif.",
+      "Service CVAC à Saint-Hubert pour la ventilation, l'échangeur d'air et le réglage de systèmes existants, avec un service réactif pour les résidents et commerces du secteur.",
     descriptionEn:
       "Local service in Saint-Hubert focused on comfort and air quality, with responsive scheduling.",
-    focusFr: ["Ventilation et échangeurs d'air", "Réglages de systèmes existants", "Conseils d'efficacité"],
+    focusFr: ["Ventilation et échangeurs d'air à Saint-Hubert", "Réglage de systèmes CVAC existants à Saint-Hubert", "Conseils d'efficacité pour les propriétés de Saint-Hubert"],
+    serviceLinks: [
+      { href: "/services/installation-thermopompe-longueuil", label: "Installation de thermopompe à Longueuil" },
+      { href: "/services/reparation-thermopompe-longueuil", label: "Réparation de thermopompe à Longueuil" },
+      { href: "/services/chauffage-longueuil", label: "Chauffage à Longueuil" },
+      { href: "/services/climatisation-longueuil", label: "Climatisation à Longueuil" },
+      { href: "/services/ventilation-longueuil", label: "Ventilation à Longueuil" },
+      { href: "/areas/longueuil", label: "Tous les services CVAC à Longueuil" }
+    ],
     focusEn: ["Ventilation and HRV systems", "System tuning", "Efficiency guidance"]
   },
   {
