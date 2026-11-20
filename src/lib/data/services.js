@@ -2,7 +2,10 @@ export const servicePages = [
   {
     slug: "installation-thermopompe-longueuil",
     titleFr: "Installation thermopompe Longueuil",
-    h1Fr: "Installation de thermopompe à Longueuil",
+    metaTitleFr: "Installation thermopompe Longueuil : coûts, étapes et FAQ",
+    h1Fr: "Installation thermopompe Longueuil : coûts, étapes et subventions",
+    metaDescriptionFr:
+      "Installation thermopompe à Longueuil : facteurs qui influencent le coût, étapes du projet, subventions possibles à confirmer auprès du programme et réponses aux questions fréquentes.",
     descriptionFr:
       "Installation de thermopompe murale ou centrale à Longueuil, avec évaluation du bâtiment, choix d'équipement et soumission claire.",
     introFr:
@@ -17,6 +20,40 @@ export const servicePages = [
       "Options pour thermopompe murale, multizone ou centrale",
       "Soumission détaillée avant l'installation"
     ],
+    contentSectionsFr: [
+      {
+        eyebrow: "Facteurs de coût",
+        title: "Ce qui influence le coût d'une installation de thermopompe",
+        text:
+          "Le coût d'une installation de thermopompe à Longueuil varie d'un projet à l'autre. Les principaux facteurs sont le type d'appareil (murale, multizone ou centrale), la puissance requise, le nombre d'unités intérieures, la distance entre les unités intérieures et l'unité extérieure, l'accès au site, les travaux électriques nécessaires et l'état de l'installation existante. Une soumission détaillée permet de voir clairement ce qui est inclus."
+      },
+      {
+        eyebrow: "Étapes du projet",
+        title: "Comment se déroule une installation de thermopompe",
+        text:
+          "En général, le projet commence par une évaluation du bâtiment (superficie, isolation, zones à desservir), suivie du choix de la puissance et de l'emplacement des unités, puis d'une soumission écrite. L'installation comprend ensuite la pose des unités, le raccordement, la mise en service et une explication du fonctionnement. La durée dépend du nombre d'unités et de la complexité du chantier."
+      },
+      {
+        eyebrow: "Subventions",
+        title: "Subventions et aide financière pour une thermopompe",
+        text:
+          "Des programmes d'aide financière pour les thermopompes peuvent exister, offerts par des gouvernements ou des distributeurs d'énergie. Les montants, les conditions d'admissibilité et les exigences varient selon le programme et peuvent changer. Il faut confirmer les détails directement auprès du programme concerné avant de prendre une décision."
+      }
+    ],
+    checklistTitleFr: "À préparer avant de demander une soumission pour une thermopompe",
+    checklistFr: [
+      "Type de bâtiment et superficie approximative",
+      "Système de chauffage actuel",
+      "Nombre de pièces ou de zones à chauffer et à climatiser",
+      "Emplacement souhaité pour les unités intérieures et extérieure",
+      "Programme de subvention visé, le cas échéant"
+    ],
+    relatedServiceSlugs: [
+      "reparation-thermopompe-longueuil",
+      "chauffage-longueuil",
+      "installation-climatisation-longueuil",
+      "entretien-cvac-longueuil"
+    ],
     faqFr: [
       {
         question: "Quel type de thermopompe convient le mieux?",
@@ -27,6 +64,21 @@ export const servicePages = [
         question: "Est-ce qu'une visite est nécessaire avant la soumission?",
         answer:
           "Une visite ou une collecte d'informations détaillée permet de proposer une puissance, un emplacement et une solution adaptés au bâtiment."
+      },
+      {
+        question: "Combien coûte l'installation d'une thermopompe à Longueuil?",
+        answer:
+          "Le coût dépend du type d'appareil, de la puissance, du nombre d'unités, des travaux électriques et de l'accès au site. Seule une soumission détaillée basée sur le bâtiment permet de connaître le coût réel."
+      },
+      {
+        question: "Existe-t-il des subventions pour l'installation d'une thermopompe?",
+        answer:
+          "Des programmes d'aide peuvent exister, mais leurs montants et leurs conditions varient et peuvent changer. Il faut confirmer l'admissibilité et les exigences directement auprès du programme."
+      },
+      {
+        question: "Quelles sont les étapes d'une installation de thermopompe?",
+        answer:
+          "Le projet comprend généralement une évaluation du bâtiment, une soumission, la pose des unités, le raccordement, la mise en service et une explication du fonctionnement."
       }
     ]
   },
@@ -47,6 +99,11 @@ export const servicePages = [
       "Vérification des symptômes et du rendement",
       "Diagnostic des composantes électriques, frigorifiques et de ventilation",
       "Recommandations claires : réparation, entretien ou remplacement"
+    ],
+    relatedServiceSlugs: [
+      "installation-thermopompe-longueuil",
+      "reparation-chauffage-longueuil",
+      "entretien-cvac-longueuil"
     ],
     faqFr: [
       {
@@ -79,6 +136,11 @@ export const servicePages = [
       "Entretien de climatiseur pour préserver le débit d'air",
       "Réparation de climatisation lorsque le système refroidit mal"
     ],
+    relatedServiceSlugs: [
+      "installation-thermopompe-longueuil",
+      "installation-climatisation-longueuil",
+      "entretien-cvac-longueuil"
+    ],
     faqFr: [
       {
         question: "Quelle est la différence entre climatiseur et thermopompe?",
@@ -109,6 +171,10 @@ export const servicePages = [
       "Options résidentielles, commerciales et institutionnelles",
       "Sélection d'un équipement adapté au volume à refroidir",
       "Installation propre avec explication du fonctionnement"
+    ],
+    relatedServiceSlugs: [
+      "installation-thermopompe-longueuil",
+      "climatisation-longueuil"
     ],
     faqFr: [
       {
@@ -316,6 +382,10 @@ export const servicePages = [
       "Inspection avant les saisons de chauffage et climatisation",
       "Recommandations pour limiter les pannes évitables"
     ],
+    relatedServiceSlugs: [
+      "installation-thermopompe-longueuil",
+      "reparation-thermopompe-longueuil"
+    ],
     faqFr: [
       {
         question: "Que couvre un entretien annuel CVAC?",
@@ -348,6 +418,11 @@ export const servicePages = [
       "Explication claire des composantes CVAC",
       "Évaluation des systèmes existants",
       "Orientation vers installation, réparation ou entretien"
+    ],
+    relatedServiceSlugs: [
+      "installation-thermopompe-longueuil",
+      "chauffage-longueuil",
+      "ventilation-longueuil"
     ],
     faqFr: [
       {
